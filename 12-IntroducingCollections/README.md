@@ -17,25 +17,25 @@ Java提供了非常棒的集合实现。
 ##### Snippet-1: 创建一个列表
 下面是一个创建列表和访问元素的例子：
 ```shell
-	jshell> List<String> words = List.of("Apple", "Bat", "Cat");
-	words ==> [Apple, Bat, Cat]
-	jshell> words.size()
-	$1 ==> 3
-	jshell> words.isEmpty()
-	$2 ==> false
-	jshell> words.get(0)
-	$3 ==> Apple
-	jshell> words.contains("Dog")
-	$4 ==> false
-	jshell> words.contains("Cat")
-	$5 ==> true
-	jshell> words
-	words ==> [Apple, Bat, Cat]
-	jshell> words.indexOf("Cat")
-	$6 ==> 2
-	jshell> words.indexOf("Dog")
-	$7 ==> -1
-	jshell>
+jshell> List<String> words = List.of("Apple", "Bat", "Cat");
+words ==> [Apple, Bat, Cat]
+jshell> words.size()
+$1 ==> 3
+jshell> words.isEmpty()
+$2 ==> false
+jshell> words.get(0)
+$3 ==> Apple
+jshell> words.contains("Dog")
+$4 ==> false
+jshell> words.contains("Cat")
+$5 ==> true
+jshell> words
+words ==> [Apple, Bat, Cat]
+jshell> words.indexOf("Cat")
+$6 ==> 2
+jshell> words.indexOf("Dog")
+$7 ==> -1
+jshell>
 ```
 #### List 的不变性
 仔细看看上面代码块中的`List words`
@@ -44,13 +44,13 @@ Java提供了非常棒的集合实现。
 
 ```shell
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
-	words ==> [Apple, Bat, Cat]
-	jshell> words.add("Dog");
-	| java.lang.UnsupportedOperationExcetion thrown:
-	| at ImmutableCollections.uoe (ImmutableCollections.java:71)
-	| at ImmutableCollections$AbstractImmutableList.add (ImmutableCollections.java:77)
-	| at (#15:1)
-	jshell>
+words ==> [Apple, Bat, Cat]
+jshell> words.add("Dog");
+| java.lang.UnsupportedOperationExcetion thrown:
+| at ImmutableCollections.uoe (ImmutableCollections.java:71)
+| at ImmutableCollections$AbstractImmutableList.add (ImmutableCollections.java:77)
+| at (#15:1)
+jshell>
 ```
 #### 创建可变的 List
 创建一个可以随时更新数据的`List`的方法是实例一个实现了`List`接口的内置`Collection`类。
@@ -60,24 +60,24 @@ jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 让我们看几个例子:
 ```shell
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
-	words ==> [Apple, Bat, Cat]
+words ==> [Apple, Bat, Cat]
 
-	jshell> List<String> wordsArrayList = new ArrayList<String>(words);
-	wordsArrayList ==> [Apple, Bat, Cat]
+jshell> List<String> wordsArrayList = new ArrayList<String>(words);
+wordsArrayList ==> [Apple, Bat, Cat]
 
-	jshell> List<String> wordsLinkedList = new LinkedList<String>(words);
-	wordsLinkedList ==> [Apple, Bat, Cat]
+jshell> List<String> wordsLinkedList = new LinkedList<String>(words);
+wordsLinkedList ==> [Apple, Bat, Cat]
 
-	jshell> List<String> wordsVector = new Vector<String>(words);
-	wordsVector ==> [Apple, Bat, Cat]
+jshell> List<String> wordsVector = new Vector<String>(words);
+wordsVector ==> [Apple, Bat, Cat]
 
-	jshell> wordsArrayList.add("Dog");
-	$1 ==> true
+jshell> wordsArrayList.add("Dog");
+$1 ==> true
 
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Cat, Dog]
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Cat, Dog]
 
-	jshell>
+jshell>
 ```
 #### ArrayList vs LinkedList
 `ArrayList` 使用一个数组存储元素。
@@ -114,31 +114,31 @@ jshell> List<String> words = List.of("Apple", "Bat", "Cat");
   - 具体位置插入同样也可以，就像插入单个元素一样
 
 ```shell
-	jshell> List<String> words = List.of("Apple", "Bat", "Cat");
-	words ==> [Apple, Bat, Cat]
-	jshell> List<String> wordsArrayList = new ArrayList<String>(words);
-	wordsArrayList ==> [Apple, Bat, Cat]
-	jshell> wordsArrayList.add("Dog");
-	$1 ==> true
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Cat, **Dog**]
-	jshell> wordsArrayList.add("Elephant");
-	$2 ==> true
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Cat, Dog, **Elephant**]
-	jshell> wordsArrayList.add(2, "Ball");
-	*jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, **Ball**, Cat, Dog, Elephant]
-	jshell> wordsArrayList.add("Ball");
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, **Ball**]
-	jshell> List<String> newList = List.of("Yak", "Zebra");
-	newList ==> [Yak, Zebra]
-	jshell> wordsArrayList.addAll(newList);
-	$3 ==> true
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, Ball,  **Yak**, **Zebra**]
-	jshell>
+jshell> List<String> words = List.of("Apple", "Bat", "Cat");
+words ==> [Apple, Bat, Cat]
+jshell> List<String> wordsArrayList = new ArrayList<String>(words);
+wordsArrayList ==> [Apple, Bat, Cat]
+jshell> wordsArrayList.add("Dog");
+$1 ==> true
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Cat, **Dog**]
+jshell> wordsArrayList.add("Elephant");
+$2 ==> true
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Cat, Dog, **Elephant**]
+jshell> wordsArrayList.add(2, "Ball");
+*jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, **Ball**, Cat, Dog, Elephant]
+jshell> wordsArrayList.add("Ball");
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, **Ball**]
+jshell> List<String> newList = List.of("Yak", "Zebra");
+newList ==> [Yak, Zebra]
+jshell> wordsArrayList.addAll(newList);
+$3 ==> true
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, Ball,  **Yak**, **Zebra**]
+jshell>
 ```
 
 ##### Snippt-5: 元素修改
@@ -150,22 +150,22 @@ jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 
 ```shell
 jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, Ball,  Yak, Zebra]
-	jshell> wordsArrayList.set(6, "Fish");
-	$4 ==> "Ball"
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, **Fish**,  Yak, Zebra]
-	jshell> wordsArrayList.remove(2);
-	$5 ==> "**Ball**"
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Cat, Dog, Elephant, Fish,  Yak, Zebra]
-	jshell> wordsArrayList.remove("Dog");
-	$6 ==> true
-	jshell> wordsArrayList
-	wordsArrayList ==> [Apple, Bat, Cat, Elephant, Fish,  Yak, Zebra]
-	jshell> wordsArrayList.remove("Dog");
-	$6 ==> false
-	jshell>
+wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, Ball,  Yak, Zebra]
+jshell> wordsArrayList.set(6, "Fish");
+$4 ==> "Ball"
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, **Fish**,  Yak, Zebra]
+jshell> wordsArrayList.remove(2);
+$5 ==> "**Ball**"
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Cat, Dog, Elephant, Fish,  Yak, Zebra]
+jshell> wordsArrayList.remove("Dog");
+$6 ==> true
+jshell> wordsArrayList
+wordsArrayList ==> [Apple, Bat, Cat, Elephant, Fish,  Yak, Zebra]
+jshell> wordsArrayList.remove("Dog");
+$6 ==> false
+jshell>
 ```
 
 ##### Snippet-5: 遍历ArrayList
@@ -176,37 +176,37 @@ jshell> wordsArrayList
 
 ```shell
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
-	words ==> [Apple, Bat, Cat]
-	jshell> for(int i=0; i<words.size(); i++) {
-	...> System.out.println(words.get(i));
-	...> }
-	Apple
-	Bat
-	Cat
+words ==> [Apple, Bat, Cat]
+jshell> for(int i=0; i<words.size(); i++) {
+...> System.out.println(words.get(i));
+...> }
+Apple
+Bat
+Cat
 ```
 
 使用增强的for循环：
 
 ```shell
 jshell> for(String word:words) {
-	...> System.out.println(word);
-	...> }
-	Apple
-	Bat
-	Cat
+...> System.out.println(word);
+...> }
+Apple
+Bat
+Cat
 ```
 
 使用迭代器：
 
 ```shell
 jshell> Iterator wordsIterator = words.iterator();
-	wordsIterator ==> java.util.AbstractList$Itr@3712b94
-	jshell> while(wordsIterator.hasNext()) {
-	...> System.out.println(wordsIterator.next());
-	...> }
-	Apple
-	Bat
-	Cat
+wordsIterator ==> java.util.AbstractList$Itr@3712b94
+jshell> while(wordsIterator.hasNext()) {
+...> System.out.println(wordsIterator.next());
+...> }
+Apple
+Bat
+Cat
 ```
 
 #### 迭代模式的选择
@@ -221,34 +221,34 @@ jshell> Iterator wordsIterator = words.iterator();
 ##### Snippet-6
 
 ```shell
-	jshell> List<String> words = List.of("Apple", "Bat", "Cat");
-	words ==> [Apple, Bat, Cat]
-	jshell> List<String> wordsAL = new ArrayList<>(words);
-	wordsAL ==> [Apple, Bat, Cat]
-	jshell> for(String word:words) {
-	  ...> if(word.endsWith("at"))
-	   ...> System.out.println(word);
-	   ...> }
-	   ...> }
-	Bat
-	Cat
-	jshell> for(String word:wordsAL) {
-	   ...> if(word.endsWith("at"))
-	   ...> wordsAL.remove(word);
-	   ...> }
-	   ...> }
-	jshell> wordsAL
-	wordsAL ==> [Apple, Cat]
-	jshell> Iterator wordsIterator = wordsAL.iterator();
-	wordsIterator ==> java.util.AbstractList$Itr@3712b94
-	jshell> while(wordsIterator.hasNext()) {
-	   ...> if(wordsIterator.next().endsWith("at")){
-	   ...> wordsIterator.remove();
-	   ...> }
-	   ...> }
-	jshell> wordsAL
-	wordsAL ==> [Apple]
-	jshell>
+jshell> List<String> words = List.of("Apple", "Bat", "Cat");
+words ==> [Apple, Bat, Cat]
+jshell> List<String> wordsAL = new ArrayList<>(words);
+wordsAL ==> [Apple, Bat, Cat]
+jshell> for(String word:words) {
+  ...> if(word.endsWith("at"))
+   ...> System.out.println(word);
+   ...> }
+   ...> }
+Bat
+Cat
+jshell> for(String word:wordsAL) {
+   ...> if(word.endsWith("at"))
+   ...> wordsAL.remove(word);
+   ...> }
+   ...> }
+jshell> wordsAL
+wordsAL ==> [Apple, Cat]
+jshell> Iterator wordsIterator = wordsAL.iterator();
+wordsIterator ==> java.util.AbstractList$Itr@3712b94
+jshell> while(wordsIterator.hasNext()) {
+   ...> if(wordsIterator.next().endsWith("at")){
+   ...> wordsIterator.remove();
+   ...> }
+   ...> }
+jshell> wordsAL
+wordsAL ==> [Apple]
+jshell>
 ```
 
 #### List: 类型安全
@@ -265,35 +265,35 @@ jshell> Iterator wordsIterator = words.iterator();
 
 ```shell
 jshell> List values = List.of("A", 'A', 1, 1.0);
-	values ==> ["A", 'A', 1, 1.0]
-	jshell> values.get(2)
-	$1 ==> 1
-	jshell> values.get(2) instanceof Integer
-	$2 ==> true
-	jshell> values.get(1) instanceof Character
-	$3 ==> true
-	jshell> values.get(3) instanceof Double
-	$4 ==> true
-	jshell> List<String> textValues = List.of("A", 'A', 1, 1.0);
-	| Error
-	| Error
-	| List<String> textValues = List.of("A", 'A', 1, 1.0);
-	|___________________________^------------------------^
-	jshell> List<Integer> numbers = List.of(101, 102, 103, 104, 105);
-	numbers ==> [101, 102, 103, 104, 105]
-	jshell> numbers.indexOf(101)
-	$5 ==> 0
-	jshell> List<Integer> numbersAL = new ArrayList<>(numbers);
-	numbersAL ==> [101, 102, 103, 104, 105]
-	jshell> numbersAL.indexOf(101)
-	$6 ==> 0
-	jshell> numbersAL.remove(101)
-	java.lang.IndexOutOfBoundsException!!
-	jshell> numbersAL.remove(Integer.valueOf(101))
-	$7 ==> true
-	jshell> numbersAL
-	numbersAL ==> [102, 103, 104, 105]
-	jshell>
+values ==> ["A", 'A', 1, 1.0]
+jshell> values.get(2)
+$1 ==> 1
+jshell> values.get(2) instanceof Integer
+$2 ==> true
+jshell> values.get(1) instanceof Character
+$3 ==> true
+jshell> values.get(3) instanceof Double
+$4 ==> true
+jshell> List<String> textValues = List.of("A", 'A', 1, 1.0);
+| Error
+| Error
+| List<String> textValues = List.of("A", 'A', 1, 1.0);
+|___________________________^------------------------^
+jshell> List<Integer> numbers = List.of(101, 102, 103, 104, 105);
+numbers ==> [101, 102, 103, 104, 105]
+jshell> numbers.indexOf(101)
+$5 ==> 0
+jshell> List<Integer> numbersAL = new ArrayList<>(numbers);
+numbersAL ==> [101, 102, 103, 104, 105]
+jshell> numbersAL.indexOf(101)
+$6 ==> 0
+jshell> numbersAL.remove(101)
+java.lang.IndexOutOfBoundsException!!
+jshell> numbersAL.remove(Integer.valueOf(101))
+$7 ==> true
+jshell> numbersAL
+numbersAL ==> [102, 103, 104, 105]
+jshell>
 ```
 
 #### List排序
@@ -303,19 +303,19 @@ jshell> List values = List.of("A", 'A', 1, 1.0);
 `ArrayList.sort()`方法定义一个`Comparator`对象。简单点的操作是可以使用`Collections.sort()`代替。
 
 ```shell
-	jshell> List<Integer> numbers = List.of(123, 12, 3, 45);
-	numbers ==> [123, 12, 3, 45]
-	jshell> List<Integer> numbersAL = new ArrayList<>(numbers);
-	numbersAL ==> [123, 12, 3, 45]
-	jshell> numbersAL.sort();
-	| Error:
-	| required: java.util.Comparator<? super java.lang.Integer>
-	| numbersAL.sort();
-	|^-------------^
-	jshell> Collections.sort(numbersAL);
-	jshell> numbersAL
-	numbersAL ==> [3, 12, 45, 123]
-	jshell>
+jshell> List<Integer> numbers = List.of(123, 12, 3, 45);
+numbers ==> [123, 12, 3, 45]
+jshell> List<Integer> numbersAL = new ArrayList<>(numbers);
+numbersAL ==> [123, 12, 3, 45]
+jshell> numbersAL.sort();
+| Error:
+| required: java.util.Comparator<? super java.lang.Integer>
+| numbersAL.sort();
+|^-------------^
+jshell> Collections.sort(numbersAL);
+jshell> numbersAL
+numbersAL ==> [3, 12, 45, 123]
+jshell>
 ```
 
 #### List 排序
@@ -327,59 +327,59 @@ jshell> List values = List.of("A", 'A', 1, 1.0);
 ***Student.java***
 
 ```java
-	package collections;
-	
-	public class Student {
-		private int id;
-		private String name;
-		
-		public Student(int id, String name) {
-			super();
-			this.id = id;
-			this.name = name;
-		}
+package collections;
 
-		public int getId() {
-			return id;
-		}
+public class Student {
+  private int id;
+  private String name;
 
-		public void setId(int id) {
-			this.id = id;
-		}
+  public Student(int id, String name) {
+    super();
+    this.id = id;
+    this.name = name;
+  }
 
-		public String getName() {
-			return name;		
-		}
+  public int getId() {
+    return id;
+  }
 
-		public void setName(String name) {
-			this.name = name;
-		}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-		public String toString() {
-			return id + " " + name;
-		}
-	}
+  public String getName() {
+    return name;		
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String toString() {
+    return id + " " + name;
+  }
+}
 ```
 
 ***StudentsCollectionRunner.java***
 
 ```java
-	package collections;
-	import java.util.Collections;
-	import java.util.List;
-	import java.util.ArrayList;
+package collections;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
-	public class StudentsCollectionRunner {
-		public static void main(String[] args) {
-			List<Student> students = List.of(new Student(1, "Ranga"),
-											new Student(100, "Adam"),
-											new Student(2, "Eve"));
-			ArrayList<Student> studentsAl = new ArrayList<>(students);
-			System.out.println(studentsAl);
-			Collections.sort(studentsAl);
-			System.out.println(studentsAl);
-		}
-	}
+public class StudentsCollectionRunner {
+  public static void main(String[] args) {
+    List<Student> students = List.of(new Student(1, "Ranga"),
+                    new Student(100, "Adam"),
+                    new Student(2, "Eve"));
+    ArrayList<Student> studentsAl = new ArrayList<>(students);
+    System.out.println(studentsAl);
+    Collections.sort(studentsAl);
+    System.out.println(studentsAl);
+  }
+}
 ```
 
 ***控制台输出***
@@ -397,37 +397,37 @@ jshell> List values = List.of("A", 'A', 1, 1.0);
 ***StudentsCollection.java***
 
 ```java
-	package collections;
-	import java.util.Comparable;
+package collections;
+import java.util.Comparable;
 
-	public class Student implements Comparable<Student> {
-		// Same as earlier
-		@Override
-		public int compareTo(Student that) {
-			return Integer.compare(this.id, that.id);
-		} 
-	}
+public class Student implements Comparable<Student> {
+  // Same as earlier
+  @Override
+  public int compareTo(Student that) {
+    return Integer.compare(this.id, that.id);
+  } 
+}
 ```
 
 ***StudentsCollectionRunner.java***
 
 ```java
-	package collections;
-	import java.util.Collections;
-	import java.util.List;
-	import java.util.ArrayList;
+package collections;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
-	public class StudentsCollectionRunner {
-		public static void main(String[] args) {
-			List<Student> students = List.of(new Student(1, "Ranga"),
-											new Student(100, "Adam"),
-											new Student(2, "Eve"));
-			ArrayList<Student> studentsAl = new ArrayList<>(students);
-			System.out.println(studentsAl);			
-			Collections.sort(studentsAl);
-			System.out.println(studentsAl);
-		}
-	}
+public class StudentsCollectionRunner {
+  public static void main(String[] args) {
+    List<Student> students = List.of(new Student(1, "Ranga"),
+                    new Student(100, "Adam"),
+                    new Student(2, "Eve"));
+    ArrayList<Student> studentsAl = new ArrayList<>(students);
+    System.out.println(studentsAl);			
+    Collections.sort(studentsAl);
+    System.out.println(studentsAl);
+  }
+}
 ```
 
 ***Console Output***
@@ -443,10 +443,10 @@ jshell> List values = List.of("A", 'A', 1, 1.0);
 如果你改变形参的顺序:
 
 ```java
-	@Override
-	public int compareTo(Student that) {
-		return Integer.compare(that.id, this.id);
-	}
+@Override
+public int compareTo(Student that) {
+  return Integer.compare(that.id, this.id);
+}
 ```
 
 输出改变成：
@@ -461,9 +461,9 @@ jshell> List values = List.of("A", 'A', 1, 1.0);
 
 ```java
 @SuppressWarnings({"unchecked", "rawtypes" })
-	public static <T> sort(List<T> list, Comparator<? super T> c)
-		list.sort(c);
-	}
+public static <T> sort(List<T> list, Comparator<? super T> c)
+  list.sort(c);
+}
 ```
 
 为了能调用它，我们需要定义一个合适的对`Student`有作用的`Comparator`实现。
@@ -473,34 +473,34 @@ jshell> List values = List.of("A", 'A', 1, 1.0);
 ##### Snippet-11: 实现`Student Comparators`
 
 ```java
-	package collections;
-	import java.util.Collections;
-	import java.util.List;
-	import java.util.ArrayList;
-	import java.util.Comparator;
+package collections;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
 
-	class DescStudentComparator implements Comparator<Student> {
-		@Override
-		public int compare(Student student1, Student student2) {
-			return Integer.compare(student2.getId(), student1.getId());		
-		}
-	}
+class DescStudentComparator implements Comparator<Student> {
+  @Override
+  public int compare(Student student1, Student student2) {
+    return Integer.compare(student2.getId(), student1.getId());		
+  }
+}
 ```
 
 ```java
 public class StudentsCollectionRunner {
-		public static void main(String[] args) {
-			List<Student> students = List.of(new Student(1, "Ranga"),
-											new Student(100, "Adam"),
-											new Student(2, "Eve"));
-			ArrayList<Student> studentsAl = new ArrayList<>(students);
-			System.out.println(studentsAl);			
-			Collections.sort(studentsAl);
-			System.out.println("Ascending : " + studentsAl);
-			Collections.sort(studentsAl, new DescStudentComparator());
-			System.out.println("Descending : " studentsAl);
-		}
-	}
+  public static void main(String[] args) {
+    List<Student> students = List.of(new Student(1, "Ranga"),
+                    new Student(100, "Adam"),
+                    new Student(2, "Eve"));
+    ArrayList<Student> studentsAl = new ArrayList<>(students);
+    System.out.println(studentsAl);			
+    Collections.sort(studentsAl);
+    System.out.println("Ascending : " + studentsAl);
+    Collections.sort(studentsAl, new DescStudentComparator());
+    System.out.println("Descending : " studentsAl);
+  }
+}
 ```
 
 ***控制台输出***
@@ -518,26 +518,26 @@ public class StudentsCollectionRunner {
 ##### Snippet-12: ArrayList.sort()的Comparator
 
 ```java
-	package collections;
-	import java.util.Collections;
-	import java.util.List;
-	import java.util.ArrayList;
-	import java.util.Comparator;
+package collections;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
 
-	public class StudentsCollectionRunner {
-		public static void main(String[] args) {
-			List<Student> students = List.of(new Student(1, "Ranga"),
-											new Student(100, "Adam"),
-											new Student(2, "Eve"));
+public class StudentsCollectionRunner {
+  public static void main(String[] args) {
+    List<Student> students = List.of(new Student(1, "Ranga"),
+                    new Student(100, "Adam"),
+                    new Student(2, "Eve"));
 
-			ArrayList<Student> studentsAl = new ArrayList<>(students);
-			System.out.println(studentsAl);
-			studentsAl.sort(new AscStudentComparator());
-			System.out.println("Asc : " + studentsAl);			
-			studentsAl.sort(new DescStudentComparator());
-			System.out.println("Desc : " + studentsAl);
-		}
-	}
+    ArrayList<Student> studentsAl = new ArrayList<>(students);
+    System.out.println(studentsAl);
+    studentsAl.sort(new AscStudentComparator());
+    System.out.println("Asc : " + studentsAl);			
+    studentsAl.sort(new DescStudentComparator());
+    System.out.println("Desc : " + studentsAl);
+  }
+}
 ```
 
 ***Console Output***
@@ -563,37 +563,37 @@ public class StudentsCollectionRunner {
 通过`Set.of()`返回的集合是不可变的，所以不支持`add()`方法。
 
 ```shell
-	jshell> Set<String> set = Set.of("Apple", "Banana", "Cat");
-	set ==> [Banana, Apple, Cat]
+jshell> Set<String> set = Set.of("Apple", "Banana", "Cat");
+set ==> [Banana, Apple, Cat]
 ```
 
 创建`HashSet`集合替代，它支持`add()`，为了测试`Set`的唯一性。
 
 ```shell
-	jshell> set.add("Apple");
-	| java.lang.UnsupportedOperationException thrown:
-	jshell> Set<String> hashSet = new HashSet<>(set);
-	hashSet ==> [Apple, Cat, Banana]
+jshell> set.add("Apple");
+| java.lang.UnsupportedOperationException thrown:
+jshell> Set<String> hashSet = new HashSet<>(set);
+hashSet ==> [Apple, Cat, Banana]
 ```
 
 `HashSet.add()`操作返回`false`，表示插入一个重复的"Apple"失败了。
 
 ```shell
-	jshell> hashSet.add("Apple");
-	$1 ==> false
-	jshell> hashSet
-	hashSet ==> [Apple, Cat, Banana]
+jshell> hashSet.add("Apple");
+$1 ==> false
+jshell> hashSet
+hashSet ==> [Apple, Cat, Banana]
 ```
 
 注意，当使用`set`构造`hashSet`时，元素的顺序改变了 。同样地，当我们通过`Set.of()`创建的`set`，打印出来的顺讯与初始化顺序也不同。说明`Set`集合不重视元素的顺序，所以不支持位置访问。所以，调用`hashSet.add(int, String)`时编译器报错。
 
 ```shell
-	jshell> hashSet.add(2, "Apple");
-	| Error:
-	| no suitable method found for add(int, java.lang.String)
-	| hashSet.add(2, "Apple");
-	|^----------^
-	jshell>
+jshell> hashSet.add(2, "Apple");
+| Error:
+| no suitable method found for add(int, java.lang.String)
+| hashSet.add(2, "Apple");
+|^----------^
+jshell>
 ```
 
 #### 理解数据结构
@@ -625,21 +625,21 @@ public class StudentsCollectionRunner {
 在`HashSet`中，元素既不是按插入顺序存储，也不是按排序顺序存储。
 
 ```shell
-	jshell> Set<Integer> numbers = new HashSet<>();
-	numbers ==> []
-	jshell> numbers.add(765432);
-	$1 ==> true
-	jshell> numbers.add(76543);
-	$2 ==> true
-	jshell> numbers.add(7654);
-	$3 ==> true
-	jshell> numbers.add(765);
-	$4 ==> true
-	jshell> numbers.add(76);
-	$5 ==> true
-	jshell> numbers
-	numbers ==> [765432, 7654, 76, 765, 76543]
-	jshell>
+jshell> Set<Integer> numbers = new HashSet<>();
+numbers ==> []
+jshell> numbers.add(765432);
+$1 ==> true
+jshell> numbers.add(76543);
+$2 ==> true
+jshell> numbers.add(7654);
+$3 ==> true
+jshell> numbers.add(765);
+$4 ==> true
+jshell> numbers.add(76);
+$5 ==> true
+jshell> numbers
+numbers ==> [765432, 7654, 76, 765, 76543]
+jshell>
 ```
 
 ##### Snippet-15: LinkedHashSet
@@ -647,25 +647,25 @@ public class StudentsCollectionRunner {
 在`LinkedHashSet`中，元素按插入顺序存储
 
 ```shell
-	jshell> Set<Integer> numbers = new LinkedHashSet<>();
-	numbers ==> []
-	jshell> numbers.add(765432);
-	$1 ==> true
-	jshell> numbers.add(76543);
-	$2 ==> true
-	jshell> numbers.add(7654);
-	$3 ==> true
-	jshell> numbers.add(765);
-	$4 ==> true
-	jshell> numbers.add(76);
-	$5 ==> true
-	jshell> numbers
-	numbers ==> [765432, 76543, 7654, 765, 76]
-	jshell> numbers.add(7654321);
-	$5 ==> true
-	jshell> numbers
-	numbers ==> [765432, 76543, 7654, 765, **7654321**]
-	jshell>
+jshell> Set<Integer> numbers = new LinkedHashSet<>();
+numbers ==> []
+jshell> numbers.add(765432);
+$1 ==> true
+jshell> numbers.add(76543);
+$2 ==> true
+jshell> numbers.add(7654);
+$3 ==> true
+jshell> numbers.add(765);
+$4 ==> true
+jshell> numbers.add(76);
+$5 ==> true
+jshell> numbers
+numbers ==> [765432, 76543, 7654, 765, 76]
+jshell> numbers.add(7654321);
+$5 ==> true
+jshell> numbers
+numbers ==> [765432, 76543, 7654, 765, **7654321**]
+jshell>
 ```
 
 ##### Snippet-16: TreeSet
@@ -673,25 +673,25 @@ public class StudentsCollectionRunner {
 在`TreeSet`中，元素按排序顺序存储。
 
 ```shell
-	jshell> Set<Integer> numbers = new TreeSet<>();
-	numbers ==> []
-	jshell> numbers.add(765432);
-	$1 ==> true
-	jshell> numbers.add(76543);
-	$2 ==> true
-	jshell> numbers.add(7654);
-	$3 ==> true
-	jshell> numbers.add(765);
-	$4 ==> true
-	jshell> numbers.add(76);
-	$5 ==> true
-	jshell> numbers
-	numbers ==> [76, 765, 7654, 76543, 765432]
-	jshell> numbers.add(7);
-	$5 ==> true
-	jshell> numbers
-	numbers ==> [**7**, 76, 765, 7654, 76543, 765432]
-	jshell>
+jshell> Set<Integer> numbers = new TreeSet<>();
+numbers ==> []
+jshell> numbers.add(765432);
+$1 ==> true
+jshell> numbers.add(76543);
+$2 ==> true
+jshell> numbers.add(7654);
+$3 ==> true
+jshell> numbers.add(765);
+$4 ==> true
+jshell> numbers.add(76);
+$5 ==> true
+jshell> numbers
+numbers ==> [76, 765, 7654, 76543, 765432]
+jshell> numbers.add(7);
+$5 ==> true
+jshell> numbers
+numbers ==> [**7**, 76, 765, 7654, 76543, 765432]
+jshell>
 ```
 
 #### 练习 Set
@@ -708,25 +708,25 @@ public class StudentsCollectionRunner {
 
 ***SetRunner.java***
 
-```shell
-	package collections;
-	import java.util.List;
-	import java.util.Set;
-	import java.util.HashSet;
-	import java.util.LinkedHashSet;
-	import java.util.TreeSet;
+```java
+package collections;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.TreeSet;
 
-	public class SetRunner {
-		public static void main(String[] args) {
-			List<Character> characters = List.of('A', 'Z', 'A', 'B', 'Z', 'F');
-			Set<Character> hashSetChars = new HashSet<>(characters);
-			System.out.println("Unique Characters: " + hashSetChars);
-			Set<Character> treeSetChars = new TreeSet<>(characters);
-			System.out.println("Sorted Order: " + treeSetChars);			
-			Set<Character> linkedSetChars = new LinkedHashSet<>(characters);
-			System.out.println("Inserted Order: " + linkedSetChars);  
-		}	
-	}
+public class SetRunner {
+  public static void main(String[] args) {
+    List<Character> characters = List.of('A', 'Z', 'A', 'B', 'Z', 'F');
+    Set<Character> hashSetChars = new HashSet<>(characters);
+    System.out.println("Unique Characters: " + hashSetChars);
+    Set<Character> treeSetChars = new TreeSet<>(characters);
+    System.out.println("Sorted Order: " + treeSetChars);			
+    Set<Character> linkedSetChars = new LinkedHashSet<>(characters);
+    System.out.println("Inserted Order: " + linkedSetChars);  
+  }	
+}
 ```
 
 ***Console Output***
@@ -752,55 +752,55 @@ public class StudentsCollectionRunner {
 让我们看一些例子：
 
 ```shell
-	jshell> TreeSet<Integer> numbers = new TreeSet<>(Set.of(65, 54, 34, 12, 99));
-	numbers ==> [12, 34, 54, 65, 99]
-	jshell> numbers.floor(40);
-	$1 ==> 34
+jshell> TreeSet<Integer> numbers = new TreeSet<>(Set.of(65, 54, 34, 12, 99));
+numbers ==> [12, 34, 54, 65, 99]
+jshell> numbers.floor(40);
+$1 ==> 34
 ```
 
 `floor()`方法返回小于等于给定元素的最大元素，`lower()`方法返回严格小于给定元素的最大元素
 
 ```shell
-	jshell> numbers.floor(34);
-	$2 ==> 34
-	jshell> numbers.lower(34);
-	$3 ==> 12
+jshell> numbers.floor(34);
+$2 ==> 34
+jshell> numbers.lower(34);
+$3 ==> 12
 ```
 
 `ceiling()`方法返回大于等于给定元素的最小元素，`higher()`方法返回严格大于给定元素的最小元素
 
 ```shell
-	jshell> numbers.ceiling(36);
-	$4 ==> 54
-	jshell> numbers.ceiling(34);
-	$5 ==> 34
-	jshell> numbers.higher(34);
-	$6 ==> 54
+jshell> numbers.ceiling(36);
+$4 ==> 54
+jshell> numbers.ceiling(34);
+$5 ==> 34
+jshell> numbers.higher(34);
+$6 ==> 54
 ```
 
 `subSet(Object, Object)`方法不包含边界。所以，左边界类似`lower()`,右边界类似`higher()`。重载的`subSet(Object, boolean, Object, boolean)方法能够决定返回的子集合的左右是否包含边界。
 
 ```shell
-	jshell> numbers.subSet(20, 80);
-	$7 ==> [34, 54, 65]
-	jshell> numbers.subSet(34, 54);
-	$8 ==> [34]
-	jshell> numbers.subSet(34, 65);
-	$9 ==> [34, 54]
-	jshell> numbers.subSet(34, true, 65, true);
-	$10 ==> [34, 54, 65]
-	jshell> numbers.subSet(34, false, 65, false);
-	$11 ==> [54]
+jshell> numbers.subSet(20, 80);
+$7 ==> [34, 54, 65]
+jshell> numbers.subSet(34, 54);
+$8 ==> [34]
+jshell> numbers.subSet(34, 65);
+$9 ==> [34, 54]
+jshell> numbers.subSet(34, true, 65, true);
+$10 ==> [34, 54, 65]
+jshell> numbers.subSet(34, false, 65, false);
+$11 ==> [54]
 ```
 
 `headSet()`返回严格小于所给元素值的子集合。`tailSet()`返回严格大于所给元素值的子集合。
 
 ```shell
-	jshell> numbers.headSet(50);
-	$12 ==> [12, 34]
-	jshell> numbers.tailSet(50);
-	$13 ==> [54, 65, 99]
-	jshell>
+jshell> numbers.headSet(50);
+$12 ==> [12, 34]
+jshell> numbers.tailSet(50);
+$13 ==> [54, 65, 99]
+jshell>
 ```
 
 ### Queue 接口
@@ -820,29 +820,29 @@ public class StudentsCollectionRunner {
 - `queue.poll()`抛出自然顺序的第一个元素
 
 ```shell
-	jshell> Queue<String> queue = new PriorityQueue<>();
-	numbers ==> [12, 34, 54, 65, 99]
-	jshell> queue.poll();
-	$1 ==> null
-	jshell> queue.offer("Apple");
-	$2 ==> true
-	jshell> queue.addAll(List.of("Zebra", "Monkey", "Cat"));
-	$3 ==> true
-	jshell> queue
-	queue ==> [Apple, Cat, Monkey, Zebra]
-	jshell> queue.poll();
-	$4 ==> "Apple"
-	jshell> queue
-	queue ==> [Cat, Monkey, Zebra]
-	jshell> queue.poll();
-	$5 ==> "Cat"
-	jshell> queue.poll();
-	$6 ==> "Monkey"
-	jshell> queue.poll();
-	$7 ==> "Zebra"
-	jshell> queue.poll();
-	$8 ==> null
-	jshell>
+jshell> Queue<String> queue = new PriorityQueue<>();
+numbers ==> [12, 34, 54, 65, 99]
+jshell> queue.poll();
+$1 ==> null
+jshell> queue.offer("Apple");
+$2 ==> true
+jshell> queue.addAll(List.of("Zebra", "Monkey", "Cat"));
+$3 ==> true
+jshell> queue
+queue ==> [Apple, Cat, Monkey, Zebra]
+jshell> queue.poll();
+$4 ==> "Apple"
+jshell> queue
+queue ==> [Cat, Monkey, Zebra]
+jshell> queue.poll();
+$5 ==> "Cat"
+jshell> queue.poll();
+$6 ==> "Monkey"
+jshell> queue.poll();
+$7 ==> "Zebra"
+jshell> queue.poll();
+$8 ==> null
+jshell>
 ```
 
 ##### Snippet-18: 自定义优先级的PriorityQuque
@@ -854,29 +854,29 @@ public class StudentsCollectionRunner {
 ***QueueRunner.java***
 
 ```java
-	package collections;
-	import java.util.Comparator;
-	import java.util.List;
-	import java.util.Queue;
-	import java.util.PriorityQueue;
+package collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Queue;
+import java.util.PriorityQueue;
 
-	class StringLengthComparator implements Comparator<String> {
-		@Override
-		public int compare(String left, String right) {
-			return Integer.compare(left.length(), right.length());
-		}
-	}
+class StringLengthComparator implements Comparator<String> {
+  @Override
+  public int compare(String left, String right) {
+    return Integer.compare(left.length(), right.length());
+  }
+}
 
-	public class QueueRunner {
-		public static void main(String[] args) {
-			Queue<String> queue = new PriorityQueue<>(new StringLengthComparator());
-			queue.addAll(List.of("Zebra", "Monkey", "Cat"));
-			queue.poll();
-			queue.poll();
-			queue.poll();
-			queue.poll();
-		}
-	}
+public class QueueRunner {
+  public static void main(String[] args) {
+    Queue<String> queue = new PriorityQueue<>(new StringLengthComparator());
+    queue.addAll(List.of("Zebra", "Monkey", "Cat"));
+    queue.poll();
+    queue.poll();
+    queue.poll();
+    queue.poll();
+  }
+}
 ```
 
 ***控制台输出***
@@ -903,11 +903,9 @@ public class StudentsCollectionRunner {
 它接口的定义如下所示：
 
 ```java
-	public interface Map<K, V> {
-
-		//Method Declarations
-
-	}
+public interface Map<K, V> {
+  //Method Declarations
+}
 ```
 
 - 实现了`Map`接口的Java集合类：
@@ -948,31 +946,31 @@ public class StudentsCollectionRunner {
 - 这个方法创建了不可变的`Map`，它的键值对顺序是无序的。
 
 ```shell
-	jshell> Map<String, Integer> map = Map.of("A", 3, "B", 5, "Z", 10);
-	map ==> {Z=10, A=3, B=5}
-	jshell> map.get("Z");
-	$1 ==> 10
-	jshell> map.get("A");
-	$2 ==> 3
-	jshell> map.get("C");
-	$3 ==> null
-	jshell> map.size();
-	$4 ==> 3
-	jshell> map.isEmpty();
-	$5 ==> false
-	jshell> map.containsKey("A");
-	$6 ==> true
-	jshell> map.containsKey("F");
-	$7 ==> false
-	jshell> map.containsValue(3);
-	$8 ==> true
-	jshell> map.containsValue(4);
-	$9 ==> false
-	jshell> map.keySet();
-	$10 ==> [Z, A, B]
-	jshell> map.values();
-	$11 ==> [10, 3, 5]
-	jshell>
+jshell> Map<String, Integer> map = Map.of("A", 3, "B", 5, "Z", 10);
+map ==> {Z=10, A=3, B=5}
+jshell> map.get("Z");
+$1 ==> 10
+jshell> map.get("A");
+$2 ==> 3
+jshell> map.get("C");
+$3 ==> null
+jshell> map.size();
+$4 ==> 3
+jshell> map.isEmpty();
+$5 ==> false
+jshell> map.containsKey("A");
+$6 ==> true
+jshell> map.containsKey("F");
+$7 ==> false
+jshell> map.containsValue(3);
+$8 ==> true
+jshell> map.containsValue(4);
+$9 ==> false
+jshell> map.keySet();
+$10 ==> [Z, A, B]
+jshell> map.values();
+$11 ==> [10, 3, 5]
+jshell>
 ```
 
 ##### Snippet-20: 可变的Map
@@ -980,19 +978,19 @@ public class StudentsCollectionRunner {
 为了在一个map中添加值，我们创建一个`HashMap`
 
 ```shell
-	jshell> Map<String, Integer> map = Map.of("A", 3, "B", 5, "Z", 10);
-	map ==> {Z=10, A=3, B=5}
-	jshell> Map<String, Integer> hashMap = new HashMap<>(map);
-	hashMap ==> {A=3, Z=10, B=5}
-	jshell> hashMap.put("F", 5);
-	$1 ==> null
-	jshell> hashMap
-	hashMap ==> {A=3, Z=10, B=5, F=5}
-	jshell> hashMap.put("Z", 11);
-	$2 ==> 10
-	jshell> hashMap
-	hashMap ==> {A=3, Z=11, B=5, F=5}
-	jshell>
+jshell> Map<String, Integer> map = Map.of("A", 3, "B", 5, "Z", 10);
+map ==> {Z=10, A=3, B=5}
+jshell> Map<String, Integer> hashMap = new HashMap<>(map);
+hashMap ==> {A=3, Z=10, B=5}
+jshell> hashMap.put("F", 5);
+$1 ==> null
+jshell> hashMap
+hashMap ==> {A=3, Z=10, B=5, F=5}
+jshell> hashMap.put("Z", 11);
+$2 ==> 10
+jshell> hashMap
+hashMap ==> {A=3, Z=11, B=5, F=5}
+jshell>
 ```
 
 #### Map集合：比较操作
@@ -1002,35 +1000,35 @@ public class StudentsCollectionRunner {
 `HashMap`的元素既不是按插入顺序存储，也不是按键的排序顺序存储。
 
 ```shell
-	jshell> HashMap<String, Integer> hashMap = new HashMap<>();
-	hashMap ==> {}
-	jshell> hashMap.put("Z", 5);
-	$1 ==> null
-	jshell> hashMap.put("A", 15);
-	$2 ==> null
-	jshell> hashMap.put("F", 25);
-	$3 ==> null
-	jshell> hashMap.put("L", 250);
-	$4 ==> null
-	jshell> hashMap
-	hashMap ==> {A=15, F=25, Z=5, L=250}
+jshell> HashMap<String, Integer> hashMap = new HashMap<>();
+hashMap ==> {}
+jshell> hashMap.put("Z", 5);
+$1 ==> null
+jshell> hashMap.put("A", 15);
+$2 ==> null
+jshell> hashMap.put("F", 25);
+$3 ==> null
+jshell> hashMap.put("L", 250);
+$4 ==> null
+jshell> hashMap
+hashMap ==> {A=15, F=25, Z=5, L=250}
 ```
 
 `LinkedHashMap`的元素按插入顺序存储。
 
 ```shell
-	jshell> LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
-	linkedHashMap ==> {}
-	jshell> linkedHashMap.put("Z", 5);
-	$5 ==> null
-	jshell> linkedHashMap.put("A", 15);
-	$6 ==> null
-	jshell> linkedHashMap.put("F", 25);
-	$7 ==> null
-	jshell> linkedHashMap.put("L", 250);
-	$8 ==> null
-	jshell> linkedHashMap
-	hashMap ==> {Z=5, A=15, F=25, L=250}
+jshell> LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
+linkedHashMap ==> {}
+jshell> linkedHashMap.put("Z", 5);
+$5 ==> null
+jshell> linkedHashMap.put("A", 15);
+$6 ==> null
+jshell> linkedHashMap.put("F", 25);
+$7 ==> null
+jshell> linkedHashMap.put("L", 250);
+$8 ==> null
+jshell> linkedHashMap
+hashMap ==> {Z=5, A=15, F=25, L=250}
 ```
 
 `TreeMap`元素按键的自然排序顺序存储
@@ -1046,37 +1044,37 @@ public class StudentsCollectionRunner {
 ***MapRunner.java***
 
 ```java
-	package collections;
-	import java.util.Map;
-	import java.util.HashMap;
+package collections;
+import java.util.Map;
+import java.util.HashMap;
 
-	public class MapRunner {
-		public static void main(String[] args) {
-			String str = "This is an awesome occassion. This has never happened before.";
-			char[] characters = str.toCharArray();
-			Map<Character, Integer> occurrences = new HashMap<>();
-			for(char character:characters) {
-				Integer count = occurrences.get(character);			
-				if(count == null) {
-					occurrences.put(character, 1);
-				} else {
-					occurrences.put(character, count+1);
-				}
-			}
-			System.out.println(occurrences);
-			String words = text.split(" ");
-			Map<String, Integer> frequency = new HashMap<>();
-			for(String word:words) {
-				Integer number = frequency.get(word);
-				if(number == null) {
-					frequency.put(word, 1);
-				} else {
-					frequency.put(word, number+1);
-				}
-			}
-			System.out.println(frequency);
-		}
-	}
+public class MapRunner {
+  public static void main(String[] args) {
+    String str = "This is an awesome occassion. This has never happened before.";
+    char[] characters = str.toCharArray();
+    Map<Character, Integer> occurrences = new HashMap<>();
+    for(char character:characters) {
+      Integer count = occurrences.get(character);			
+      if(count == null) {
+        occurrences.put(character, 1);
+      } else {
+        occurrences.put(character, count+1);
+      }
+    }
+    System.out.println(occurrences);
+    String words = text.split(" ");
+    Map<String, Integer> frequency = new HashMap<>();
+    for(String word:words) {
+      Integer number = frequency.get(word);
+      if(number == null) {
+        frequency.put(word, 1);
+      } else {
+        frequency.put(word, number+1);
+      }
+    }
+    System.out.println(frequency);
+  }
+}
 ```
 
 #### 回顾 TreeMap
