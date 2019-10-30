@@ -27,7 +27,7 @@
 - Chapter 02 - Understanding Method
 - Chapter 03 - Understanding the Java Platform
 - Chapter 04 - Eclipse
-- Chapter 05 - Object Oriented Progamming (OOP)
+- [Chapter 05 - Object Oriented Progamming (OOP)](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/05-ObjectOrientedProgamming)
 - Chapter 06 - Primitive Data Types
 - Chapter 07 - Introducing Conditionals - if, switch and more
 - Chapter 08 - Loops
