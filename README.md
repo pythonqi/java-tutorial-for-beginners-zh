@@ -34,7 +34,7 @@
 - Chapter 09 - Reference Types
 - Chapter 10 - Arrays and ArrayList
 - Chapter 11 - Object Oriented Programming (*OOP*) - Revisited
-- Chapter 12 - Introducing Collections
+- [Chapter 12 - Introducing Collections](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/12-IntroducingCollections)
 - Chapter 13 - Introducing Generics
 - Chapter 14 - Introduction to Functional Programming
 - Chapter 15 - Threads and Concurrency
