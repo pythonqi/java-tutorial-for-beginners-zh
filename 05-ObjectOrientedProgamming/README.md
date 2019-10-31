@@ -576,13 +576,13 @@ public class MotorBikeRunner {
 
 ***Current Ducati Speed is : -100***
 
-##### Snippet-06 说明
+##### Snippet-6 说明
 
 对于摩托车来说，`-100`的速度是不可能的。目前我们对其没有任何的验证。`setSpeed`方法让我们可以添加验证程序。
 
 看一下怎么实现。
 
-##### Snippet-07：速度是否正确验证
+##### Snippet-7：速度是否正确验证
 
 ***MotorBike.java***
 
@@ -630,5 +630,689 @@ public class MotorBike {
 
 我们已经了解了OOP中封装的一些知识点。
 
+假设现在我们想给Honda和Ducati两辆摩托车增加`100mph`的速度。逻辑很简单，对吧？先获取当前每辆摩托车的`speed`，并加上`100`，然后再重新给摩托车设置新的`speed`。下面的例子实现了这个逻辑。
+
+##### Snippet-8：麻烦的增加速度代码
+
+***MotorBike.java***
+
+```java
+// No Change
+```
+
+***MotorBikeRunner.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBikeRunner {
+  public static void main(String[] args) {
+    MotorBike ducati = new MotorBike();
+    MotorBike honda = new MotorBike();
+    ducati.start();		
+    honda.start();
+    ducati.setSpeed(100);
+
+    System.out.printf("Earlier Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Earlier Honda Speed is : %d", honda.getSpeed()).println();
+
+    int ducatiSpeed = ducati.getSpeed();
+    ducatiSpeed = ducatiSpeed + 100;
+    ducati.setSpeed(ducatiSpeed);
+
+    int hondaSpeed = honda.getSpeed();
+    hondaSpeed = hondaSpeed + 100;
+    honda.setSpeed(hondaSpeed);
+
+    System.out.printf("Later Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Later Honda Speed is : %d", honda.getSpeed()).println();
+  }
+}
+```
+
+输出结果:
+
+*Bike started!*
+
+*Bike started!*
+
+*Earlier Ducati Speed is : 100*
+
+*Earlier Honda Speed is : 0*
+
+***Later Ducati Speed is : 200***
+
+***Later Honda Speed is : 100***
+
+##### Snippet-8 说明
+
+注意到`MotorBikeRunner`中的重复代码了吗？修改`ducati`的`speed`的代码几乎和`honda`一样。记得在本书的开头，我们是这么说的：
+
+*“任何的计算机程序的目标是为了让任务对程序员来说更简单，更方便和更优雅。”*
+
+OOP通过封装实现了所有的这些。将重复的逻辑用一个方法封装起来，然后传递特定对象的信息作为它的参数。下个例子展示了其中一种实现方式。
+
+##### Snippet-9：通过代码封装增加速度
+
+***MotorBike.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBike {
+  //Other code same as before
+  public void increaseSpeed(int howMuch) {
+    this.speed = this.speed + howMuch;
+  }
+}
+```
+
+***MotorBikeRunner.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBikeRunner {
+  public static void main(String[] args) {
+
+    MotorBike duati = new MotorBike();
+    MotorBike honda = new MotorBike();
+    ducati.start();
+    honda.start();
+
+    ducati.setSpeed(100);
+
+    System.out.printf("Earlier Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Earlier Honda Speed is : %d", honda.getSpeed()).println();
+
+    ducati.increaseSpeed(100);
+    honda.increaseSpeed(100);
+
+    System.out.printf("Later Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Later Honda Speed is : %d", honda.getSpeed()).println();
+  }
+}
+```
+
+输出结果:
+
+*Bike started!*
+
+*Bike started!*
+
+*Earlier Ducati Speed is : 100*
+
+*Earlier Honda Speed is : 0*
+
+***Later Ducati Speed is : 200***
+
+***Later Honda Speed is : 100***
+
+##### Snippet-9 说明
+
+`MotorBike`类新增了`increaseSpeed()`方法。`ducati`和`honda`对象能够调用它。
+
+现在我们给`MotorBike`类增加减速特性。
+
+##### Snippet-10：代码封装实现速度增减
+
+***MotorBike.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBike {
+  // Other methods same as before
+  public void decreaseSpeed(int howMuch) {
+    this.speed = this.speed - howMuch;
+  }
+}
+```
+
+***MotorBikeRunner.java\***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBikeRunner {
+  public static void main(String[] args) {
+    MotorBike ducati = new MotorBike();
+    MotorBike honda = new MotorBike();
+    ducati.start();
+    honda.start();
+
+    ducati.setSpeed(100);
+    System.out.printf("Earlier Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Earlier Honda Speed is : %d", honda.getSpeed()).println();
+
+    ducati.increaseSpeed(100);
+    honda.increaseSpeed(100);
+    ducati.decreaseSpeed(50);
+    honda.decreaseSpeed(50);
+
+    System.out.printf("Later Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Later Honda Speed is : %d", honda.getSpeed()).println();
+
+    ducati.decreaseSpeed(200);
+    honda.decreaseSpeed(200);
+
+    System.out.printf("Final Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Final Honda Speed is : %d", honda.getSpeed()).println();
+  }
+}
+```
+
+输出结果:
+
+*Bike started!*
+
+*Bike started!*
+
+*Earlier Ducati Speed is : 100*
+
+*Earlier Honda Speed is : 0*
+
+***Later Ducati Speed is : 150***
+
+***Later Honda Speed is : 50***
+
+***Final Ducati Speed is : -50***
+
+***Final Honda Speed is : -150***
+
+##### Snippet-10 说明
+
+`MotorBike`类已经增加了`decreaseSpeed()`方法。`MotorBikeRunner`类的`main()`方法中的`ducati`和`honda`可以调用这个方法。
+
+又出现了**负的速度值**，我们的验证逻辑需要改进。
+
+##### Snippet-11：再次用方法验证
+
+***MotorBike.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBike {
+
+  //Same as before
+
+  public void increaseSpeed(int howMuch) {
+    if(this.speed + howMuch > 0)
+       this.speed = this.speed + howMuch;
+  }
+
+  public void decreaseSpeed(int howMuch) {
+    if(this.speed - howMuch > 0)
+       this.speed = this.speed - howMuch;
+  }
+}
+```
+
+***MotorBikeRunner.java***
+
+```java
+//Same as before
+```
+
+输出结果：
+
+*Bike started!*
+
+*Bike started!*
+
+*Earlier Ducati Speed is : 100*
+
+*Earlier Honda Speed is : 0*
+
+*Later Ducati Speed is : 150*
+
+*Later Honda Speed is : 50*
+
+***Final Ducati Speed is : 150***
+
+***Final Honda Speed is : 50***
+
+##### Snippet-11 说明
+
+我们已经实现了数据验证，因为如果想要把`ducati`和`honda`的速度减到`0`以下，现在会被忽略。
+
+但是这样的代价就是代码冗余。
+
+那我们怎么减少重复代码呢？
+
+##### Snippet-12：利用代码复用进行验证
+
+***MotorBike.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBike {
+  //Other methods same as before
 
 
+  public void setSpeed(int speed) {
+    if(speed > 0)
+      this.speed = speed;
+  }
+
+  public void increaseSpeed(int howMuch) {
+    setSpeed(this.speed + howMuch);
+  }
+
+  public void decreaseSpeed(int howMuch) {
+    setSpeed(this.speed - howMuch);
+  }
+}
+```
+
+***MotorBikeRunner.java***
+
+```java
+//Same as before
+```
+
+输出结果：
+
+*Bike started!*
+
+*Bike started!*
+
+*Earlier Ducati Speed is : 100*
+
+*Earlier Honda Speed is : 0*
+
+*Later Ducati Speed is : 150*
+
+*Later Honda Speed is : 50*
+
+***Final Ducati Speed is : 150***
+
+***Final Honda Speed is : 50***
+
+##### Snippet-12 说明
+
+这种处理方式背后的思路是更新速度的操作和`set()`是一样。因为`setSpeed()`已经有了验证机制，所以在`increaseSpeed()`和`decreaseSpeed()`中传递适当的参数就可以调用它。
+
+通过这种方式，验证逻辑可以通过更新方法重用。
+
+> 注意。重复的逻辑会让你的代码难以维护。
+
+##### 总结
+
+这一小节中，我们：
+
+- 开始研究封装的代码复用的优点
+- 在数据验证的基础上，将这种思想映射到`MotorBike`示例
+
+### 11：编程练习 PE-OO-03
+
+#### 练习
+
+1. 使用封装性编写`Book`类的方法
+   - 增加书本数量
+   - 减少书本数量
+
+#### 解题
+
+***BookRunner.java***
+
+```java
+public class BookRunner {
+  public static void main(String[] args) {
+    Book taocp = new Book();
+    taocp.setTitle("The Art Of Computer Programming");
+    Book ej = new Book();
+    ej.setTitle("Effective Java");
+    Book cc = new Book();
+    cc.setTitle("Clean Code");
+
+    System.out.println(taocp.getTitle());
+    System.out.println(ej.getTitle());
+    System.out.println(cc.getTitle());
+
+    taocp.increaseCopies(10);
+    ej.increaseCopies(15);
+    cc.increaseCopies(20);
+    taocp.decreaseCopies(5);
+    ej.decreaseCopies(10);
+    cc.decreaseCopies(15);
+
+    System.out.println(taocp.getNumberOfCopies());
+    System.out.println(ej.getNumberOfCopies());
+    System.out.println(cc.getNumberOfCopies());
+  }
+}
+```
+
+***Book.java***
+
+```java
+public class Book {
+  private String title;
+  private int numberOfCopies;
+
+  public void setTitle(String bookTitle) {
+    title = bookTitle;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setNumberOfCopies(int numberOfCopies) {	
+    if(numberOfCopies > 0) {
+      this.numberOfCopies = numberOfCopies;
+    }
+  }
+
+  public int getNumberOfCopies() {
+    return numberOfCopies;
+  }
+
+  public void increaseCopies(int howMuch) {
+    setNumberOfCopies(numberOfCopies + howMuch);
+  }
+
+  public void decreaseCopies(int howMuch) {
+    setNumberOfCopies(numberOfCopies - howMuch);
+  }
+}
+```
+
+***控制台输出***
+
+*The Art Of Computer Programming*
+
+*Effective Java*
+
+*Clean Code*
+
+*5*
+
+*5*
+
+*5*
+
+### 12：构造器介绍
+
+当我们新建Ducati和Honda这两辆摩托车时，也许想给它们设置一个初始速度。
+
+假设我们想让Ducati一开始有100mph的速度，并且Honda有200mph的速度。
+
+##### Snippet-13：MotorBike 构造器
+
+***MotorBike.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBike {
+  private int speed;
+
+
+  MotorBike(int speed) {
+    if(speed > 0)
+      this.speed = speed;
+  }
+
+  //Same as before
+
+}
+```
+
+***MotorBikeRunner.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBikeRunner {
+  public static void main(String[] args) {
+    MotorBike ducati = new MotorBike(100);
+    MotorBike honda = new MotorBike(200);
+    ducati.start();
+    honda.start();
+    System.out.printf("Earlier Ducati Speed is : %d", ducati.getSpeed()).println();
+    System.out.printf("Earlier Honda Speed is : %d", honda.getSpeed()).println();
+  }
+}
+```
+
+输出结果：
+
+*Bike started!*
+
+*Bike started!*
+
+*Earlier Ducati Speed is : 100*
+
+*Earlier Honda Speed is : 200*
+
+##### Snippet-13 说明
+
+我们定义了拥有单个参数的`MotorBike`构造器
+
+`public MotorBike(int speed) { /* Constructor Code Goes Here */ }`
+
+构造器是一个命名和类名相同的方法。所有Java的对方法的规范同样适用于构造器。构造器不能被直接调用。
+
+当使用`new`关键字实例化类对象时，会调用构造器方法。一个类的构造器方法可以接受任意个参数。接下来让我们为`MotorBike`构造器编写一些完整的代码。
+
+#### 总结
+
+这一节中，我们学习了类构造器的概念。
+
+### 13：编程练习 PE-OO-04，构造器扩展知识
+
+#### 练习
+
+1. 重写`Book`类，增加构造器方法。这个构造器接受一个整形参数用来指定已经出版的副本数：
+   - "The Art Of Computer Programming" : 100 副本
+   - "Effective Java" : 75 副本
+   - "Clean Code" : 60 副本
+
+#### 解题
+
+***BookRunner.java***
+
+```java
+public class BookRunner {
+  public static void main(String[] args) {
+    Book taocp = new Book(100);
+    taocp.setTitle("The Art Of Computer Programming");
+
+    Book ej = new Book(75);
+    ej.setTitle("Effective Java");
+
+    Book cc = new Book(60);
+    cc.setTitle("Clean Code");
+
+    System.out.println(taocp.getTitle());
+    System.out.println(taocp.getNumberOfCopies());
+
+    System.out.println(ej.getTitle());`
+    System.out.println(ej.getNumberOfCopies());
+
+    System.out.println(cc.getTitle());
+    System.out.println(cc.getNumberOfCopies());
+  }
+}
+```
+
+***Book.java\***
+
+```java
+public class Book {
+  private String title;
+  private int numberOfCopies;
+
+  public Book(int numberOfCopies) {
+    this.numberOfCopies = numberOfCopies;
+  }
+
+  public void setTitle(String bookTitle) {
+    title = bookTitle;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public int getNumberOfCopies() {
+    return numberOfCopies;
+  }
+}
+```
+
+***控制台输出***
+
+*The Art Of Computer Programming*
+
+*100*
+
+*Effective Java*
+
+*75*
+
+*Clean Code*
+
+*60*
+
+#### 构造器扩展知识
+
+我们定义了`MotorBike`类，然后检验了`ducati`和`honda`两个`MotorBike`实例的方法。
+
+我们一开始使用下面的命令创建`MotorBike`类的实例：
+
+`MotorBike ducati = new MotorBike();`
+
+你有注意到一些熟悉的东西吗？`new MotorBike()`表达式是不是和调用构造器方法很像？
+
+实际上就是调用了`MotorBike`的构造器方法！
+
+当我们在Java中定义了一个类（甚至看起来是一个空的类），会发生一些神奇的事情。看一下这个`Cart`类：
+
+```java
+class Cart {
+  
+};
+```
+
+这个类既没有成员变量也没有方法。当我们尝试实例化这个“空”的类：
+
+```java
+class CartRunner {
+  public static void main(String[] args) {
+    Cart cart = new Cart();
+  }
+}
+```
+
+代码似乎可以很顺利地编译、执行和初始化!实际上，编译器为`Cart`类生成了**默认的构造器**。
+
+默认的构造器没有任何形参。就像用下面的方式定义`Cart`类：
+
+```java
+class Cart {
+  public Cart() {
+  }
+};
+```
+
+构造器也可能有重载的定义。
+
+现在我们默认初始化`MotorBike`类的实例，就像实例化`Cart`类一样。
+
+##### Snippet-15：默认`MotorBike`构造器
+
+***MotorBike.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBike {
+
+  private int speed;
+
+  MotorBike(int speed) {
+    if(speed > 0)
+      this.speed = speed;
+  }
+}
+```
+
+***MotorBikeRunner.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBikeRunner {
+  public static void main(String[] args) {
+    MotorBike ducati = new MotorBike(100);
+    MotorBike honda = new MotorBike(200);
+    MotorBike yamaha = new MotorBike();
+  }
+}
+```
+
+***控制台输出***
+
+***Compiler Error***
+
+##### Snippet-15 说明
+
+**MotorBikeRunner.java**文件编译出错。`MotorBike yamaha = new MotorBike();`编译失败了。为什么？
+
+查立并没有生成默认的构造器！如果你已经在类中定义了构造器，那编译器就不会添加默认的构造器了。**如果你不喜欢我为你做的事情，那你就自己去做！**这就是编译器的回应。
+
+如果你需要默认的构造器，可以显示地写出来。
+
+##### Snippet-16：程序员自定义的默认构造器
+
+***MotorBike.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBike {
+  //state
+  private int speed;
+
+  //behavior
+  MotorBike() {
+    this(5);
+  }
+
+  MotorBike(int speed) {
+    if(speed > 0)
+      this.speed = speed;
+  }
+
+}
+```
+
+***MotorBikeRunner.java***
+
+```java
+package com.in28minutes.oops;
+
+public class MotorBikeRunner {
+  public static void main(String[] args) {
+    MotorBike ducati = new MotorBike(100);
+    MotorBike honda = new MotorBike(200);
+    MotorBike yamaha = new MotorBike();
+    System.out.printf("Earlier Yamaha Speed is : %d", yamaha.getSpeed()).println();
+  }
+}
+```
+
+输出结果：
+
+***Earlier Yamaha Speed is : 5***
+
+##### Snippet-16 说明
+
+我们为`MotorBike`类定义了0个形参的构造器使对象可以默认初始化。但是`this(5);`这条语句是干什么的？
+
+我们在`MotorBike()`中利用`this`关键字调用了构造函数`MotorBike(int)`。
