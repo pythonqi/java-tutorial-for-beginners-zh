@@ -27,14 +27,14 @@
 - Chapter 02 - Understanding Method
 - Chapter 03 - Understanding the Java Platform
 - Chapter 04 - Eclipse
-- [Chapter 05 - Object Oriented Progamming (OOP)](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/05-ObjectOrientedProgamming)
+- [Chapter 05 - Object Oriented Progamming (OOP)](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/05-ObjectOrientedProgamming)【已完成】
 - Chapter 06 - Primitive Data Types
 - Chapter 07 - Introducing Conditionals - if, switch and more
 - Chapter 08 - Loops
 - Chapter 09 - Reference Types
-- Chapter 10 - Arrays and ArrayList
+- [Chapter 10 - Arrays and ArrayList](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/10-ArraysAndArrayList)【翻译中】
 - Chapter 11 - Object Oriented Programming (*OOP*) - Revisited
-- [Chapter 12 - Introducing Collections](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/12-IntroducingCollections)
+- [Chapter 12 - Introducing Collections](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/12-IntroducingCollections)【已完成】
 - Chapter 13 - Introducing Generics
 - Chapter 14 - Introduction to Functional Programming
 - Chapter 15 - Threads and Concurrency
@@ -44,13 +44,13 @@
 
 ## 我们的学习方法
 
-我们做了一个研究，关于学生为什么放弃了编程？
+我们做了一个关于学生为什么放弃了编程的研究？
 
 最普遍的答案是
 
 > 难在编写他们的第一个程序
 
-把自己放在初学者的角度上，然后来看一下这个经典的Java `Hello World`示例。
+把自己放在初学者的角度上，再来看一下这个经典的Java `Hello World`示例。
 
 ```java
 package com.in28minutes.firstjavaproject; 
@@ -62,18 +62,18 @@ public class HelloWorld
 }
 ```
 
-编程初学者看到这段代码一脸懵逼。我还记得20年前看到这段代码时的感受。目瞪口呆。
+编程初学者看到这段代码时一脸懵逼。我还记得20年前看到这段代码时的感受。目瞪口呆。
 
 为什么？
 
 - 这里有几个关键字和一些概念 - package，public，class，static，void，String[] 等等。
-- 假如编写者打错字怎么办？他们能修吗？
+- 假如编写者打错字怎么办？他们能纠正吗？
 
 **我们认为学习编程有一种更好的方式**。
 
 - 为什么我们不循序渐进地学习编程呢？
 - 为什么不更有趣点呢？
-- 为什么我们不通过解决大量问题来学习编程呢？
+- 为什么我们不通过解决大量问题的方式来学习编程呢？
 
 这就是我们编写本教程和开发Java和Python入门编程课程的方法。
 
