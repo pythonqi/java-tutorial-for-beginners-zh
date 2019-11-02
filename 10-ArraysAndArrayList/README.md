@@ -1018,16 +1018,17 @@ public class Student {
 
 *Number of marks : 3*
 
-*Sum of marks : 295
+*Sum of marks : 295*
 
 Average of marks : 98.334
 
-*Maximum of marks : 100
+*Maximum of marks : 100*
 
-*Minimum of marks : 97
+*Minimum of marks : 97*
 
 *Ranga[97,98,100]*
 
 *Ranga[97,98,100,35]*
 
 *Ranga[97,100,35]*
+
