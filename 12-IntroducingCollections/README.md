@@ -17,7 +17,7 @@ Java提供了非常棒的集合实现。
 
 ##### Snippet-1: 创建一个列表
 下面是一个创建列表和访问元素的例子：
-```shell
+```java
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 words ==> [Apple, Bat, Cat]
 jshell> words.size()
