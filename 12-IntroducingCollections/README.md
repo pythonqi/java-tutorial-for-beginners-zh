@@ -43,7 +43,7 @@ jshell>
 `List<String> words = List.of("Apple", "Bat", "Cat");`
 使用静态方法`of`创建的列表是不可变的。
 
-```shell
+```java
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 words ==> [Apple, Bat, Cat]
 jshell> words.add("Dog");
@@ -59,7 +59,7 @@ jshell>
 
 ##### Snippet-3: 可变列表
 让我们看几个例子:
-```shell
+```java
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 words ==> [Apple, Bat, Cat]
 
@@ -114,7 +114,7 @@ jshell>
   - 放在最后
   - 具体位置插入同样也可以，就像插入单个元素一样
 
-```shell
+```java
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 words ==> [Apple, Bat, Cat]
 jshell> List<String> wordsArrayList = new ArrayList<String>(words);
@@ -149,7 +149,7 @@ jshell>
 - 修改指定位置的元素
 - 删除元素
 
-```shell
+```java
 jshell> wordsArrayList
 wordsArrayList ==> [Apple, Bat, Ball, Cat, Dog, Elephant, Ball,  Yak, Zebra]
 jshell> wordsArrayList.set(6, "Fish");
@@ -175,7 +175,7 @@ jshell>
 
 基本的for循环：
 
-```shell
+```java
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 words ==> [Apple, Bat, Cat]
 jshell> for(int i=0; i<words.size(); i++) {
@@ -188,7 +188,7 @@ Cat
 
 使用增强的for循环：
 
-```shell
+```java
 jshell> for(String word:words) {
 ...> System.out.println(word);
 ...> }
@@ -199,7 +199,7 @@ Cat
 
 使用迭代器：
 
-```shell
+```java
 jshell> Iterator wordsIterator = words.iterator();
 wordsIterator ==> java.util.AbstractList$Itr@3712b94
 jshell> while(wordsIterator.hasNext()) {
@@ -221,7 +221,7 @@ Cat
 
 ##### Snippet-6
 
-```shell
+```java
 jshell> List<String> words = List.of("Apple", "Bat", "Cat");
 words ==> [Apple, Bat, Cat]
 jshell> List<String> wordsAL = new ArrayList<>(words);
@@ -264,7 +264,7 @@ jshell>
   - `ArrayList.remove(int index)`：删除`ArrayList`中特定下标的元素
   - `ArrayList.remove(Object o)`：删除一个特定的元素，如果它在`ArrayList`中存在
 
-```shell
+```java
 jshell> List values = List.of("A", 'A', 1, 1.0);
 values ==> ["A", 'A', 1, 1.0]
 jshell> values.get(2)
@@ -303,7 +303,7 @@ jshell>
 
 `ArrayList.sort()`方法定义一个`Comparator`对象。简单点的操作是可以使用`Collections.sort()`代替。
 
-```shell
+```java
 jshell> List<Integer> numbers = List.of(123, 12, 3, 45);
 numbers ==> [123, 12, 3, 45]
 jshell> List<Integer> numbersAL = new ArrayList<>(numbers);
@@ -563,14 +563,14 @@ public class StudentsCollectionRunner {
 
 通过`Set.of()`返回的集合是不可变的，所以不支持`add()`方法。
 
-```shell
+```java
 jshell> Set<String> set = Set.of("Apple", "Banana", "Cat");
 set ==> [Banana, Apple, Cat]
 ```
 
 创建`HashSet`集合替代，它支持`add()`，为了测试`Set`的唯一性。
 
-```shell
+```java
 jshell> set.add("Apple");
 | java.lang.UnsupportedOperationException thrown:
 jshell> Set<String> hashSet = new HashSet<>(set);
@@ -579,7 +579,7 @@ hashSet ==> [Apple, Cat, Banana]
 
 `HashSet.add()`操作返回`false`，表示插入一个重复的"Apple"失败了。
 
-```shell
+```java
 jshell> hashSet.add("Apple");
 $1 ==> false
 jshell> hashSet
@@ -588,7 +588,7 @@ hashSet ==> [Apple, Cat, Banana]
 
 注意，当使用`set`构造`hashSet`时，元素的顺序改变了 。同样地，当我们通过`Set.of()`创建的`set`，打印出来的顺讯与初始化顺序也不同。说明`Set`集合不重视元素的顺序，所以不支持位置访问。所以，调用`hashSet.add(int, String)`时编译器报错。
 
-```shell
+```java
 jshell> hashSet.add(2, "Apple");
 | Error:
 | no suitable method found for add(int, java.lang.String)
@@ -625,7 +625,7 @@ jshell>
 
 在`HashSet`中，元素既不是按插入顺序存储，也不是按排序顺序存储。
 
-```shell
+```java
 jshell> Set<Integer> numbers = new HashSet<>();
 numbers ==> []
 jshell> numbers.add(765432);
@@ -647,7 +647,7 @@ jshell>
 
 在`LinkedHashSet`中，元素按插入顺序存储
 
-```shell
+```java
 jshell> Set<Integer> numbers = new LinkedHashSet<>();
 numbers ==> []
 jshell> numbers.add(765432);
@@ -673,7 +673,7 @@ jshell>
 
 在`TreeSet`中，元素按排序顺序存储。
 
-```shell
+```java
 jshell> Set<Integer> numbers = new TreeSet<>();
 numbers ==> []
 jshell> numbers.add(765432);
@@ -752,7 +752,7 @@ public class SetRunner {
 
 让我们看一些例子：
 
-```shell
+```java
 jshell> TreeSet<Integer> numbers = new TreeSet<>(Set.of(65, 54, 34, 12, 99));
 numbers ==> [12, 34, 54, 65, 99]
 jshell> numbers.floor(40);
@@ -761,7 +761,7 @@ $1 ==> 34
 
 `floor()`方法返回小于等于给定元素的最大元素，`lower()`方法返回严格小于给定元素的最大元素
 
-```shell
+```java
 jshell> numbers.floor(34);
 $2 ==> 34
 jshell> numbers.lower(34);
@@ -770,7 +770,7 @@ $3 ==> 12
 
 `ceiling()`方法返回大于等于给定元素的最小元素，`higher()`方法返回严格大于给定元素的最小元素
 
-```shell
+```java
 jshell> numbers.ceiling(36);
 $4 ==> 54
 jshell> numbers.ceiling(34);
@@ -781,7 +781,7 @@ $6 ==> 54
 
 `subSet(Object, Object)`方法不包含边界。所以，左边界类似`lower()`,右边界类似`higher()`。重载的`subSet(Object, boolean, Object, boolean)方法能够决定返回的子集合的左右是否包含边界。
 
-```shell
+```java
 jshell> numbers.subSet(20, 80);
 $7 ==> [34, 54, 65]
 jshell> numbers.subSet(34, 54);
@@ -796,7 +796,7 @@ $11 ==> [54]
 
 `headSet()`返回严格小于所给元素值的子集合。`tailSet()`返回严格大于所给元素值的子集合。
 
-```shell
+```java
 jshell> numbers.headSet(50);
 $12 ==> [12, 34]
 jshell> numbers.tailSet(50);
@@ -820,7 +820,7 @@ jshell>
 
 - `queue.poll()`抛出自然顺序的第一个元素
 
-```shell
+```java
 jshell> Queue<String> queue = new PriorityQueue<>();
 numbers ==> [12, 34, 54, 65, 99]
 jshell> queue.poll();
@@ -946,7 +946,7 @@ public interface Map<K, V> {
 - 传入的参数总数应该是一个偶数
 - 这个方法创建了不可变的`Map`，它的键值对顺序是无序的。
 
-```shell
+```java
 jshell> Map<String, Integer> map = Map.of("A", 3, "B", 5, "Z", 10);
 map ==> {Z=10, A=3, B=5}
 jshell> map.get("Z");
@@ -978,7 +978,7 @@ jshell>
 
 为了在一个map中添加值，我们创建一个`HashMap`
 
-```shell
+```java
 jshell> Map<String, Integer> map = Map.of("A", 3, "B", 5, "Z", 10);
 map ==> {Z=10, A=3, B=5}
 jshell> Map<String, Integer> hashMap = new HashMap<>(map);
@@ -1000,7 +1000,7 @@ jshell>
 
 `HashMap`的元素既不是按插入顺序存储，也不是按键的排序顺序存储。
 
-```shell
+```java
 jshell> HashMap<String, Integer> hashMap = new HashMap<>();
 hashMap ==> {}
 jshell> hashMap.put("Z", 5);
@@ -1017,7 +1017,7 @@ hashMap ==> {A=15, F=25, Z=5, L=250}
 
 `LinkedHashMap`的元素按插入顺序存储。
 
-```shell
+```java
 jshell> LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
 linkedHashMap ==> {}
 jshell> linkedHashMap.put("Z", 5);
@@ -1086,7 +1086,7 @@ public class MapRunner {
 
 `TreeMap`中的元素总是排好序的。
 
-```shell
+```java
 jshell> TreeMap<String, Integer> treeMap = new TreeMap<>();
 treeMap ==> {}
 jshell> treeMap.put("F", 25);
@@ -1107,7 +1107,7 @@ treeMap ==> {A=15, B=25, F=25, G=25, L=250, Z=5}
 
 `TreeMap`也实现了`NavigableMap`接口
 
-```shell
+```java
 jshell> treeMap.higherKey("B");
 $7 ==> "F"
 jshell> treeMap.higherKey("C");
