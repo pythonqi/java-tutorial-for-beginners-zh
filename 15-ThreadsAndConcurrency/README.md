@@ -230,3 +230,201 @@ task2Thread.start();
 - 学习了另外一种创建线程的方式，通过实现`Runnable`接口
 - 学习了运行使用`Runnable`接口创建的线程
 
+### 03：线程的生命周期
+
+Java线程在其存活时间中经历一系列状态。使用**生命周期**这个术语来描述这个事实，并明确地定义了线程在不同时间点的具体状态。
+
+让我们思考下面这段刚刚在**小节02**中探究的示例：
+
+```java
+class Task1 extends Thread {
+  public void run() {
+    for(int i=101; i<=199; i++) {
+      System.out.print(i + " ");
+    }
+  }	
+}
+
+class Task2 implements Runnable {
+  @Override
+  public void run() {
+    for(int i=201; i<=299; i++) {
+      System.out.print(i + " ");
+    }
+  }
+}
+
+public class ThreadBasicsRunner {
+  public static void main(String[] args) {
+    Task1 task1 = new Task1();
+    task1.start();
+    Task2 task2 = new Task2();
+    Thread task2Thread = new Thread(task2);
+    task2Thread.start();
+    for(int i=301; i<=399; i++) {			
+      System.out.print(i + " ");
+    }
+  }
+}
+```
+
+线程的不同状态：
+
+- **NEW**：线程一创建就处于这种状态，但是它还没有调用`start()`方法。
+  - 对于 *Task1* 来说：执行`Task1 task1 = new Task1();`之后
+  - 对于 *Task2* 来说：执行`Task2 task2 = new Task2(); task2Thread = new Thread(task2);`之后
+- **TERMINATED/DEAD**：当一个线程`run()`方法里的所有语句执行完毕，称这个线程结束。
+
+在一个线程调用了`start()`方法以后，它可以处于其余三种状态的任何一种。
+
+- **RUNNING**：如果线程当前正在运行。
+- **RUNNABLE**：如果线程当前没有运行，但是已经准备好可以随时运行。
+- **BLOCKED/WAITING**：如果线程没在处理器上运行，也没有准备好运行。如果它正在等待外部资源(例如用户的输入)或另一个线程，可能会出现这种情况。
+
+#### 总结
+
+在这一节中，我们：
+
+- 通过一个示例讨论了线程的不同状态
+
+### 04：线程优先级
+
+Java允许你请求线程调度程序，以改变线程的优先级。所有线程的优先级总是处于一个固定的范围中 - `MIN_PRIORITY = 1` 到 `MAX_PRIORITY = 10`。任何线程默认的优先级是`NORM_PRIORITY = 5`。
+
+可以通过`Thread`类的静态方法`setPriority(int)`请求改变线程的优先级。这个请求可能会得到响应，也可能不会得到响应，所以要做好准备!
+
+### 05：线程通信
+
+任何没有显式创建线程的程序都是单线程应用程序。我们这里指的线程是*主线程*，用来执行程序的`main()`方法。
+
+看一下**小节02**中的例子。我们增加一个条件 — *Task3* 在 *Task1* 结束之后执行。
+
+***ThreadBasicsRunner.java***
+
+```java
+class Task1 extends Thread {
+  public void run() {
+    System.out.println("Task1 Started ");
+    for(int i=101; i<=199; i++) {
+      System.out.print(i + " ");
+    }
+  }
+}
+
+class Task2 implements Runnable {
+  @Override
+  public void run() {
+    System.out.println("Task2 Started ");
+    for(int i=201; i<=299; i++) {
+      System.out.print(i + " ");
+    }
+    System.out.println("\nTask2 Done");
+  }
+}
+
+public class ThreadBasicsRunner {
+  public static void main(String[] args) {
+    System.out.print("\nTask1 Kicked Off\n");
+    Task1 task1 = new Task1();		
+    task1.start();
+    System.out.print("\nTask2 Kicked Off\n");
+    Task2 task2 = new Task2();
+    Thread task2Thread = new Thread(task2);
+    task2Thread.start();
+
+    task1.join();
+
+    System.out.print("\nTask3 Kicked Off\n");
+    for(int i=301; i<=399; i++) {
+      System.out.print(i + " ");
+    }
+    System.out.println("\nTask3 Done");
+    System.out.println("\nMain Done");
+  }
+}
+```
+
+##### Snippet-5 说明
+
+`task1.join()`会一直等待直到`task1`完成。所以，在`task.join()`后面的代码只有在`task1`完成后才会执行。
+
+如果我们要 *Task3* 在 *Task1* 和 *Task2* 都完成后执行，在`main()`方法里的代码需要写成下面这样：
+
+##### Snippet-6：Task3 在 Task1 和 Task2 后执行
+
+***ThreadBasicsRunner.java***
+
+```java
+public static void main(String[] args) {
+  System.out.print("\nTask1 Kicked Off\n");
+  Task1 task1 = new Task1();
+  task1.start();
+
+  System.out.print("\nTask2 Kicked Off\n");
+  Task2 task2 = new Task2();
+  Thread task2Thread = new Thread(task2);
+  task2Thread.start();
+
+  task1.join();
+  task2Thread.join();
+
+  System.out.print("\nTask3 Kicked Off\n");
+  for(int i=301; i<=399; i++) {
+    System.out.print(i + " ");
+  }
+  System.out.println("\nTask3 Done");
+  System.out.println("\nMain Done");
+
+}
+```
+
+##### Snippet-6 说明
+
+需要注意的是，*Task1*和*Task2*仍然是独立的子任务。线程调度器自由地交错执行它们。但是，*Task3*只有它们都结束之后才开始执行。
+
+#### 总结
+
+在这一节中，我们：
+
+- 了解了线程间需要通信
+- 了解到Java为线程提供了相互等待的机制
+- 观察到如何使用`join()`方法对线程执行顺序排序
+
+### 07：synchronized 方法，与线程的实用程序
+
+当一个线程感到累了，你可以把它放到床上。见鬼，你甚至可以在它处于新生状态和渴望运行状态时那么做。它由你控制，记住了吗？
+
+`Thread`类提供了一些方法：
+
+- `public static native void sleep(int millis)`：调用这个方法会导致线程出现问题，进入*阻塞/等待*状态**至少**`millis`毫秒。
+- `public static native void yield()`：请求线程调度器去执行其他的线程。调度器可以忽略这些请求。
+
+##### Snippet-7：线程实用程序
+
+```java
+jshell> Thread.sleep(1000)
+
+jshell> Thread.sleep(10000)
+
+jshell>
+```
+
+##### Snippet-7 说明
+
+- `Thread.sleep(1000)`导致`jshell`提示符在*至少*延迟了1秒后出现。当执行`Thread.sleep(10000)`，这个延迟更加明显。
+
+### 08：前面方法的缺点
+
+我们在`Thread`类中看到的几个同步方法：
+
+- `start()`
+- `join()`
+- `sleep()`
+- `wait()`
+
+上面的方法有几点不足：
+
+- **无粒度控制**：假设，比如我们要 *Task3* 在 *Task1* 和 *Task2* 任意一个完成后执行。我们该怎么做？
+- **难以维护**：想象一下用前面例子中写的代码去管理5-10个线程。这会很难维护。
+- **没有子任务返回机制**：使用`Thread`类或`Runnable`接口，都无法从子任务中获得结果。
+
