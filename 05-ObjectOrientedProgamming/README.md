@@ -554,7 +554,7 @@ public class MotorBike {
 }
 ```
 
-***MotorBikeRunner.java\***
+***MotorBikeRunner.java***
 
 ```java
 package com.in28minutes.oops;
@@ -769,7 +769,7 @@ public class MotorBike {
 }
 ```
 
-***MotorBikeRunner.java\***
+***MotorBikeRunner.java***
 
 ```java
 package com.in28minutes.oops;
@@ -1140,7 +1140,7 @@ public class BookRunner {
 }
 ```
 
-***Book.java\***
+***Book.java***
 
 ```java
 public class Book {
@@ -1264,7 +1264,7 @@ public class MotorBikeRunner {
 
 **MotorBikeRunner.java**文件编译出错。`MotorBike yamaha = new MotorBike();`编译失败了。为什么？
 
-查立并没有生成默认的构造器！如果你已经在类中定义了构造器，那编译器就不会添加默认的构造器了。**如果你不喜欢我为你做的事情，那你就自己去做！**这就是编译器的回应。
+查立并没有生成默认的构造器！如果你已经在类中定义了构造器，那编译器就不会添加默认的构造器了。**如果你不喜欢我为你做的事情，那你就自己去做!** 这就是编译器的回应。
 
 如果你需要默认的构造器，可以显示地写出来。
 
