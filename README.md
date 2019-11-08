@@ -40,7 +40,7 @@
 - [Chapter 15 - Threads and Concurrency](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/15-ThreadsAndConcurrency)【已完成】
 - Chapter 16 - Introduction To Exception handling
 - Chapter 17 - File Operations
-- Chapter 18 - Concurrency : Advanced Topics
+- [Chapter 18 - Concurrency : Advanced Topics](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/18-ConcurrencyAdvancedTopics)【已完成】
 
 ## 我们的学习方法
 
