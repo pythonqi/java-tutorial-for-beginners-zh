@@ -33,7 +33,7 @@
 - Chapter 08 - Loops
 - Chapter 09 - Reference Types
 - [Chapter 10 - Arrays and ArrayList](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/10-ArraysAndArrayList)【已完成】
-- Chapter 11 - Object Oriented Programming (*OOP*) - Revisited
+- [Chapter 11 - Object Oriented Programming (*OOP*) - Revisited](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/11-ObjectOrientedProgrammingRevisited)【翻译中】
 - [Chapter 12 - Introducing Collections](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/12-IntroducingCollections)【已完成】
 - Chapter 13 - Introducing Generics
 - Chapter 14 - Introduction to Functional Programming
