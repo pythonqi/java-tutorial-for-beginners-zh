@@ -910,3 +910,321 @@ public class StudentRunner {
 }
 ```
 
+### 08：Obejct类的介绍
+在Java中，每个类，不论是Java内置库的类，还是用户自定义的类，都隐式继承了`Object`类。
+`Object`类可以在Java系统包`java.lang`中查看。这个类位于Java类继承层次的根部。所有的类，包括数组，实现/继承了这个类的方法。
+让我们看一下`Person`和`Student`类。
+
+##### Snippet-01：`Object`类
+***Person.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class Person {
+  private String name;
+  private String email;
+  private String phoneNumber;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+}
+```
+***Student.java***
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class Student extends Person {
+    private String collegeName;
+    private int year;
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    punlic int getYear() {
+        return year;
+    }
+}
+```
+
+***StudentRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class StudentRunner {
+  public static void main(String[] args)
+    //Student student = new Student();
+    //student.setName("Ranga");
+    //student.setEmail("in28minutes@gmail.com");
+
+    Person person = new Person();
+    String personStr = person.toString();
+    System.out.println(personStr);
+    System.out.println(person);
+    int hashCode = person.hashCode();			
+    person.notify();
+  }
+}
+```
+
+***控制台输出***
+
+*com.in28minutes.oops.level2.inheritance.Person@7a46a697*
+
+*com.in28minutes.oops.level2.inheritance.Person@7a46a697*
+
+##### Snippet-01 说明
+
+作为默认实现的`Object`类的方法，比如`toString()`，`hashCode()`和`notify()`，`Person`类的对象可以使用这些方法。
+
+`System.out.println(person);`这条语句实际上会转化成`System.out.println(person.toString())`。因为Java系统隐式调用了`person.toString()`，这是从`Object`类继承下来的。
+
+### 09：集合和方法重载
+
+子类从父类继承的特性
+
+- 状态属性：超类的成员变量
+- 行为部分：超类定义的方法
+
+这些当然是可以在子类中分别进行访问（和修改）与调用的。
+
+你也可以在子类中覆盖父类中的方法实现 - **方法重载**。
+
+##### Snippet-01：方法重载
+
+**Person.java**
+
+```java
+package com.in28miutes.oops.level2.inheritance;
+
+public class Person {
+  private String name;
+  private String email;
+  private String phoneNumber;
+  
+  public void setName(String name) {
+    this.name = name;
+  }
+  
+  public String getName() {
+    return name;
+  }
+  
+  public void setEmail(String emial) {
+    this.emial = emial;
+  }
+  
+  public String getEmail() {
+    return emial;
+  }
+  
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+  
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+  
+  public String toString() {
+    return String.format("Person %s, Emial : %s, Phone Number : %s", name, email, phoneNumber);
+  }
+}
+```
+
+***PersonRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class PersonRunner {
+  public static void main(String[] args) {
+    Person person = new Person();
+    person.setName("Ranga");
+    person.setEmail("in28minutes@gmail.com");
+    person.setPhoneNumber("9898989898");
+    String personStr = person.toString();
+    System.out.println(personStr);
+    System.out.println(person);
+  }
+}
+```
+
+***控制台输出***
+
+*Person Ranga , Email : [in28minutes@gmail.com](mailto:in28minutes@gmail.com), Phone Number : 9898989898*
+
+*Person Ranga , Email : [in28minutes@gmail.com](mailto:in28minutes@gmail.com), Phone Number : 9898989898*
+
+##### Snippet-01 说明
+
+通过在`Person`这个子类中定义`toString()`方法，我们覆盖了父类`Object`提供的默认`toString()`版本。
+
+### 10：Classromm Exercise CE-OOP-01
+
+创建一个`Person`类（译者注：原文将`Person`写成了`Student`，作者笔误）扩展成`Employee`类，包含以下属性：
+
+- `title`
+- `employerName` （译者注：原文为`employer`，与后面代码不符，作者笔误）
+- `employeeGrade`
+- `salary`
+
+为`Employee`创建一个`toString()`方法，打印包括`Person`状态属性在内的所有状态属性值。
+
+##### Snippet-01：Employee 继承
+
+***Person.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class Person {
+  private String name;
+  private String email;
+  private String phoneNumber;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public String toString() {
+    return Sring.format("Person %s , Email : %s, Phone Number : %s", name, email, phoneNumber);
+  }
+}
+```
+
+***Employee.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+import java.math.BigDecimal;
+
+public class Employee extends Person {
+  private String title;
+  private String employerName;
+  private char employeeGrade;
+  private BigDecimal salary;
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setEmployerName(String employer) {
+    this.employerName = employerName;
+  }
+
+  public String getEmployerName() {
+    return employerName;
+  }
+
+  public void setEmployeeGrade(char  employeeGrade) {
+    this.employeeGrade = employeeGrade;
+  }
+
+  public char getEmployeeGrade() {
+    return employeeGrade;
+  }
+
+  public void setSalary(BigDecimal  salary) {
+    this.salary = salary;
+  }
+
+  public BigDecimal getSalary() {
+    return salary;
+  }
+
+  public String toString() {
+    return String.format("Employee Title: %s, Employer: %s, Employee Grade: %c, Salary: %s",
+                title,
+                employerName,
+                employeeGrade,
+                salary);
+  }
+}
+```
+
+***EmployeeRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class EmployeeRunner {
+  public static void main(String[] args) {
+    Employee employee = new Employee();
+    employee.setName("Ranga");
+    employee.setEmail("in28minutes@gmail.com");
+    employee.setPhoneNumber("123-456-7890");
+    employee.setTitle("Programmer Analyst");
+    employee.setEmployerName("In28Minutes");
+    employee.setEmployeeGrade('A');
+    employee.setSalary(new BigDecimal("50000"));
+    System.out.println(employee);
+  }
+}
+```
+
+***控制台输出***
+
+*Employee Title: Programmer Analyst, Employer: In28Minutes, Employee Grade: A, Salary: 50000.0000*
+
+##### Snippet-01 说明
+
+我们没有在重载的`Employee.toString()`方法中打印`Person`对象信息。让我们看看下一步。
+
+
+
