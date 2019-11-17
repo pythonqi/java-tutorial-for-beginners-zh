@@ -177,7 +177,7 @@ public class FanRunner {
 
 另外两个状态属性，`isOn`和`speed`需要暴露出来被`Fan`对象用户修改。我们将会提供方法来修改它们。
 
-##### Snippet-01；`Fan`类 - v4
+##### Snippet-01：`Fan`类 - v4
 
 ***FanRunner.java***
 
@@ -1226,5 +1226,693 @@ public class EmployeeRunner {
 
 我们没有在重载的`Employee.toString()`方法中打印`Person`对象信息。让我们看看下一步。
 
+### 11：构造器与`super()`调用
 
+`super`关键字允许子类访问父类中存在的属性。
+
+##### Snippet-01：调用 Person.toSring()
+
+***Employee.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+import java.math.BigDecimal;
+
+public class Employee extends Person {
+	//focusing only on the toString() method
+	public String toString() {
+		return String.format("Employee Name: %s, Email: %s, Phone Number: %s, Title: %s, Employer: %s, Employee Grade: %c, Salary: %s",
+								super.getName(),
+								super.getEmail(),
+								super.getPhoneNumber(),
+								title,
+								employerName,
+								employeeGrade,
+								salary);
+	}
+}
+```
+***EmployeeRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class EmployeeRunner {
+	public static void main(String[] args) {
+		Employee employee = new Employee();
+		employee.setName("Ranga");
+		employee.setEmail("in28minutes@gmail.com");
+		employee.setPhoneNumber("123-456-7890");
+		employee.setTitle("Programmer Analyst");
+		employee.setEmployerName("In28Minutes");
+		employee.setEmployeeGrade('A');		
+		employee.setSalary(new BigDecimal("50000"));
+		System.out.println(employee);
+	}
+}
+```
+***控制台输出***
+
+Employee Name: Ranga, Email: in28minutes@gmail.com, Phone Number: 123-456-7890, Title: Programmer Analyst, Employer: In28Minutes, Employee Grade: A, Salary: 50000.0000
+
+`super`关键字允许子类访问父类中存在的属性。因此，我们可以在`Employee`对象中调用`Person`对象的getter方法，比如`Employee.toString()`中的`super.getName()`，`super.getEmail()`和`super.getPhoneNumber()`。
+
+#### 子类构造器
+
+子类对象创建时发生了什么？有调用父类的构造器吗？
+
+##### Snippet-02：Person 类
+
+***Person.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class Person {
+
+  public Person() {
+    System.out.println("Inside Person Constructor");
+  }
+
+}
+```
+
+***Employee.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+import java.math.BigDecimal;
+
+public class Employee extends Person {
+
+  public Employee() {
+    //super();
+    System.out.println("Inside Employee Constructor");
+  }
+
+}
+```
+
+***EmployeeRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class EmployeeRunner {
+  public static void main(String[] args) {
+    Employee employee = new Employee();
+  }
+}
+```
+
+***控制台输出***
+
+*Inside Person Constructor*
+
+*Inside Employee Constructor*
+
+##### Snippet-02 说明
+
+当创建子类对象时
+
+- 调用了子类构造器，而且它隐式调用了它的父类构造器。
+
+Java编译器将`super();`这行代码插入到子类默认构造器的第一行（如果它没有被程序员显示地添加的话），这里是`Employer()`构造器。
+
+- `super();`相当于调用了父类的默认构造器。
+- 因此，始终在子类构造器之前调用父类构造器。
+
+##### Snippet-03：`Person` - 非默认构造器
+
+让我们删除`Person`类里的无参构造器，然后再添加有一个参数的构造器。
+
+```java
+  public Person(String name) {
+    this.name = name;
+  }
+```
+
+***PersonRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class PersonRunner {
+  public static void main(String[] args)
+    Person person = new Person("Ranga");
+    person.setEmail("in28minutes@gmail.com");
+    person.setPhoneNumber("123-456-7890");
+    System.out.println(person);
+  }
+}
+```
+
+***控制台输出***
+
+*Person Ranga , Email : [in28minutes@gmail.com](mailto:in28minutes@gmail.com), Phone Number : 123-456-7890*
+
+##### Snippet-03 说明
+
+当我们为`Person`类（译者注：原文为`Employee`，作者笔误）添加了带一个参数的构造器时，现存的**EmployeeRunner.java**代码会报编译错误，因为在`Person`中已经没有默认的构造器了。
+
+`super()`在`Employee`里的默认构造器中无法被调用。
+
+一个选择是把无参构造器放回去
+
+```java
+public Person() {
+  System.out.println("Inside Person Constructor");
+}
+```
+
+但是，实际上创建一个没有`name`的`Person`是没意义的，对吧？
+
+这个例子的解决办法是调用这个带一个参数的构造器`Person(String name)`，比如使用`super(name);`。
+
+```java
+  public Employee(String name, String title, String employerName, char employeeGrade) {
+    super(name);
+    this.title = title;
+    this.employerName = employerName;
+    this.employeeGrade = employeeGrade;
+  }
+```
+
+***EmployeeRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class EmployeeRunner {
+  public static void main(String[] args) {
+    Employee employee = new Employee("Ranga", "Programmer Analyst", "In28Minutes", 'A');
+    System.out.println(employee);
+  }
+}
+```
+
+***控制台输出***
+
+*Employee Name: Ranga, Email: null, Phone Number: null, Title: Programmer Analyst, Employer: In28Minutes, Employee Grade: A, Salary: null*
+
+##### Snippet-04 补全EmployeeRunner
+
+让我们用setter方法设置非强制的属性。
+
+***EmployeeRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class EmployeeRunner {
+  public static void main(String[] args) {
+    Employee employee = new Employee("Ranga", "Programmer Analyst", "In28Minutes", 			'A');
+    employee.setEmail("in28minutes@gmail.com");
+    employee.setPhoneNumber("123-456-7890");
+    employee.setSalary(new BigDecimal("50000"));
+    System.out.println(employee);
+  }
+}
+```
+
+**控制台输出**
+
+*Employee Name: Ranga, Email: [in28minutes@gmail.com](mailto:in28minutes@gmail.com), Phone Number: 123-456-7890, Title: Programmer Analyst, Employer: In28Minutes, Employee Grade: A, Salary: 50000.0000*
+
+##### Snippet-05 更新`Student`
+
+让我们给`Student`类添加一个带两个参数的构造器。
+
+***Student.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class Student extends Person {
+  private String collegeName;
+  private int year;
+
+  public Student(String name, String collegeName) {
+    super(name);
+    this.collegeName = collegeName;
+  }
+
+  public String getCollegeName() {
+    return collegeName;
+  }
+
+  public void setYear(int year) {
+    this.year = year;
+  }
+
+  public int getYear() {
+    return year;
+  }
+
+  public String toString() {
+    return "Student : " + super.name() + ", College: " + collegeName;
+  }
+}
+```
+
+***StudentRunner.java***
+
+```java
+package com.in28minutes.oops.level2.inheritance;
+
+public class StudentRunner {
+  public static void main(String[] args)
+    //Student student = new Student();
+    Student student = new Student("Ranga", "IIT Bombay");
+    System.out.println(student);
+  }
+}
+```
+
+***控制台输出***
+
+*Student : Ranga, College : IIT Bombay*
+
+### 12：多重继承，引用变量和`instanceof`
+
+在其他编程语言中，允许多重继承。一个类能够直接继承两个或更多的类。
+
+然而，Java不允许多继承。
+
+##### Snippet-01 : Multiple Inheritance
+
+```java
+jshell> class Animal {
+   ..>> }
+| created class Animal
+jshell> class Pet {
+   ..>> }
+| created class Pet
+
+jshell> class Dog extends Animal, Pet {
+   ..>> }
+| Error:
+| '{' expected
+| class Dog extends Animal, Pet {
+|_________________________^
+jshell>
+```
+
+`class Dog extends Animal, Pet {}`抛出了错误。你不能扩展两个类。
+
+#### 继承链
+
+但是你可以使用继承链。
+
+- 类`C`继承类`B`
+- 类`B`继承类`A`
+
+让我们看一小段代码
+
+##### Snippet-02：继承链
+
+`Dog`继承`Per`，`Pet`继承`Animal`。这就是所谓的继承层次的示例。
+
+```java
+jshell> class Animal {
+   ..>> }
+| created class Animal
+jshell> class Pet extends Animal {
+   ..>> public void groom() {
+   ..>> System.out.println("Pet Groom");
+   ..>> }
+   ..>> }
+| created class Pet_
+jshell> class Dog extends Pet {
+   ..>> }
+| created class Dog
+```
+
+如果你想的话，你可以在脑海中想象：*`Dog` --> `Pet` --> `Animal` --> `Object`* （没错，`Object`类在Java中位于所有继承层次的顶部！）
+
+`Dog dog = new Dog();`语句引发了构造器对继承层次的调用：`Dog()`调用了`Pet()`，`Pet()`调用了`Animal()`，`Amimal()`调用了`Object()`。
+
+```java
+jshell> Dog dog = new Dog();
+dog ==> Dog@23a6e47f
+```
+
+`dog.toString()`表达式也对继承层次进行了遍历：因为`Dog.toString()`没有定义，编译器就查找`Pet.toString()`；因为`Pet.toString()`没有定义，编译器查找`Animal.toString()`；因为`Animal.toString()`没有定义，编译器查找`Object.toString()`，它始终作为Java中`Object`类的所有子类的默认实现提供。
+
+```java
+jshell> dog.toString();
+$1 ==> "Dog@23a6e47f"
+```
+
+`dog.groom();`的调用也可以通过遍历继承层次来解决。
+
+```java
+jshell> dog.groom();
+"Pet Groom"
+```
+
+`Pet pet = new Dog();` 这条语句真的很有意思。在Java中允许父类引用变量指向子类对象实例。
+
+通过这样的引用，也允许调用方法，而且会正确调用。所以，`per.groom();`输出了"*`Pet Groom`*"。
+
+但是不允许反向赋值。子类引用变量**不能**指向父类对象实例。所以`Dog dog = new Pet();`这条语句会造成编译出错。
+
+```java
+jshell> Pet pet = new Dog();
+pet ==> Dog@22d37d54
+jshell> pet.groom();
+Pet Groom
+```
+
+```java
+jshell> Dog dog = new Pet();
+| Error:
+| incompatible types: Pet cannot be converted to Dog
+| Dog dog = new Pet();
+|___________^-------^
+```
+
+`instanceof`操作符用来查看对象和类之间的关系。如果一个对象是所提供类或者子类的实例，返回`true`。
+
+```java
+jshell> pet instanceof Pet
+$2 ==> true
+jshell> pet instanceof Dog
+$3 ==> true
+```
+
+如果对象和类没有关系，`instanceof`操作符会抛出错误。
+
+```java
+jshell> pet instanceof String
+| Error:
+| incompatible types: Pet cannot be converted to java.lang.String
+| pet instanceof String
+|_^-^
+jshell> pet instanceof Animal
+$4 ==> true
+jshell> pet instanceof Object
+$5 ==> true
+```
+
+如果这个对象是所提供类的父类的实例，`instanceof`操作符返回`false`。
+
+```java
+jshell> Animal animal = new Animal();
+animal ==> Animal@3632be31
+jshell> animal instanceof Pet
+$6 ==> false
+jshell> animal instanceof Dog
+$7 ==> false
+jshell> animal instanceof Object
+$8 ==> true
+jshell>
+```
+
+### 13：抽象类介绍
+
+抽象类可以包含抽象方法。
+
+抽象方法没有方法定义。
+
+这里有一个典型类，你可以在这个类中创建方法，并且你可以创建这个类的实例。
+
+```java
+jshell> class Animal {
+   ..>> public void bark() {
+   ..>> System.out.println("Animal Bark");
+   ..>> }
+   ..>> }
+| created class Animal
+jshell> Animal animal = new Animal();
+animal ==> Animal@335eadca
+jshell> animal.bark();
+Animal Bark
+```
+
+让我们看看如何创建一个抽象类：
+
+```java
+jshell> abstract class AbstractAnimal {
+   ..>> abstract public void bark();
+   ..>> }
+| created class AbstractAnimal
+```
+
+语法很简单：在`class`前加上`abstract`关键字。
+
+抽象类无法实例化。
+
+```java
+jshell> AbstractAnimal animal = new AbstractAnimal();
+| Error:
+| AbstractAnimal is abstract; cannot be instantiated.
+| AbstractAnimal animal = new AbstractAnimal();
+|^--------------------------------------------^
+jshell>
+```
+
+但是，它可以子类化，通过创建它的继承层次。抽象类的子类（通常称为**具体类**）必须重载抽象类中的抽象方法。（译者注：如果子类没有实现抽象父类的所有抽象方法，这个子类也必须声明为抽象类。**只要有抽象方法，必须声明为抽象类**。）
+
+```java
+jshell> class Dog extends AbstractAnimal {
+   ..>> }
+| Error:
+| Dog is not abstract and does not override abstract method bark() in AbstractAnimal
+| class Dog extends AbstractAnimal {
+|^----------------------------------...
+jshell> class Dog extends AbstractAnimal {
+   ..>> public void bark() {
+   ..>> System.out.println("Bow Bow");
+   ..>> }
+   ..>> }
+| created class Dog
+jshell> Dog dog = new Dog();
+dog ==> Dog@5a8e6209
+jshell> dog.bark();
+Bow Bow
+```
+
+### 14：抽象类 - 设计部分
+
+为什么我们需要抽象类？
+
+想象一下在家中准备一场盛宴，活动菜单上有几道菜。很显然，准备每道菜都有具体的工序。烹饪任何菜肴通常都需要遵循久经考验的食谱，它的准备工作可以归结为以下几个基本步骤：
+
+- 准备原料
+- 烹饪食谱
+- 清理（会变乱！）
+
+对于每道菜肴，这些步骤将有所不同，但是步骤的顺序保持不变。
+
+##### Snippet-01：食谱层次
+
+让我们使用抽象类来构建这个食谱。
+
+***AbstractRecipe.java***
+
+```java
+package com.in28minutes.oops.level2;
+
+public abstract class AbstractRecipe {
+  public void execute() {
+    prepareIngredients();
+    cookRecipe();			
+    cleanup();
+  }
+
+  abstract void prepareIngredients();
+  abstract void cookRecipe();
+  abstract void cleanup();
+}
+```
+
+我们为每个步骤定义了抽象方法，并且创建了一个`execute`方法来调用它们。`execute`方法确保遵循方法调用的顺序。
+
+你可以定义抽象方法的具体实现。
+
+***CurryRecipe.java***
+
+```java
+package com.in28minutes.oops.level2;
+
+public class CurryRecipe extends AbstractRecipe {
+  public CurryRecipe() {
+    System.out.println("[Curry Preparation Method]");
+  }
+
+  @Override
+  void prepareIngredients() {
+    System.out.println("Get Vegetables Cut and Ready");
+    System.out.println("Get Spices Ready");
+  }
+
+  @Override
+  void cookRecipe() {
+    System.out.println("Steam And Fry Vegetables");
+    System.out.println("Cook With Spices");
+    System.out.println("Add Seasoning");
+  }
+
+  @Override
+  void cleanup() {
+    System.out.println("Discard unused Vegetables");
+    System.out.println("Discard unused Spices");
+  }
+}
+```
+
+***RecipeRunner.java***
+
+```java
+package com.in28minutes.oops.level2;
+
+public class RecipeRunner {
+  public static void main(String[] args) {
+    CurryRecipe curryRecipe = new CurryRecipe();
+    curryRecipe.execute();
+  }
+}
+```
+
+***控制台输出***
+
+*[Curry Preparation Method]*
+
+*Get Vegetables Cut and Ready*
+
+*Get Spices Ready*
+
+*Steam And Fry Vegetables*
+
+*Cook With Spices*
+
+*Add Seasoning*
+
+*Discard unused Vegetables*
+
+*Discard unused Spices*
+
+##### Snippet-01 说明
+
+`CurryRecipe`类定义了在每一步中需要做什么。当我们调用`execute`方法时，就会按照顺序执行这些步骤。
+
+##### Snippet-02：MicrowaveCurryRecipe
+
+我们可以轻松地创建更多食谱。
+
+***MicrowaveCurryRecipe.java***
+
+```java
+package com.in28minutes.oops.level2;
+
+public class MicrowaveCurryRecipe extends AbstractRecipe {
+  public MicrowaveCurryRecipe() {
+    System.out.println("[Curry Microwave Method]");
+  }
+
+  @Override
+  void prepareIngredients() {
+    System.out.println("Get Vegetables Cut and Ready");
+    System.out.println("Switch on Microwave");
+  }
+
+  @Override
+  void cookRecipe() {
+    System.out.println("Microwave Vegetables");
+    System.out.println("Add Seasoning");
+  }
+
+  @Override
+  void cleanup() {
+    System.out.println("Switch Off Microwave");
+    System.out.println("Discard unused Vegetables");
+  }
+}
+```
+
+***RecipeRunner.java***
+
+```java
+package com.in28minutes.oops.level2;
+
+public class RecipeRunner {
+  public static void main(String[] args) {
+    MicrowaveCurryRecipe mcirowaveRecipe = new MicrowaveCurryRecipe();
+    microwaveRecipe.execute();
+  }
+}
+```
+
+***控制台输出***
+
+*[Curry Microwave Method]*
+
+*Get Vegetables Cut and Ready*
+
+*Switch on Microwave*
+
+*Microwave Vegetables*
+
+*Add Seasoning*
+
+*Switch off Microwave*
+
+*Discard unused Vegetables*
+
+##### Snippet-02 说明
+
+`MicrowaveCurryRecipe`类定义了在每一步中需要做什么。当我们调用`execute`方法时，就会按照顺序执行这些步骤。
+
+#### 总结
+
+这种模式称为`模板方法`模式。你可以在抽象类中定义这些步骤，将每一步的具体实现留给了子类。
+
+### 15：抽象类 - 疑问
+
+让我们看几个关于抽象类的FAQ。
+
+没有抽象方法的类，也可以声明为抽象类。
+
+```java
+jshell> abstract class AbstractTest {
+   ...>}
+| creates abstract class AbstractTest
+```
+
+一个抽象类可以是另一个抽象类的子类，不覆盖任何父类的抽象方法。
+
+```java
+jshell> abstract class AbstractAlgorithm {
+   ...> abstract void flowChart();
+   ...> }
+| creates abstract class AbstractAlgorithm
+jshell> abstract class AlgorithmTypeOne extends AbstractAlgorithm {
+   ...> }
+| creates abstract class AlgorithmTypeOne
+```
+
+抽象类可以有成员变量。
+
+```java
+jshell> abstract class AbstractAlgorithm {
+   ...> private int stepCount;
+   ...> }
+| replaced abstract class AbstractAlgorithm
+```
+
+抽象类可以非抽象方法。
+
+```java
+jshell> abstract class AbstractAlgorithm {
+   ...> private int stepCount;
+   ...> public int getStepCount() {
+   ...> return stepCount;
+   ...> }
+   ...> }
+| replaced abstract class AbstractAlgorithm
+jshell>
+```
+
+### 16：接口介绍
 
