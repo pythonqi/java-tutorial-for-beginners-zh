@@ -1495,7 +1495,7 @@ public class StudentRunner {
 
 ### 12：多重继承，引用变量和`instanceof`
 
-在其他编程语言中，允许多重继承。一个类能够直接继承两个或更多的类。
+在有些编程语言中，允许多重继承。一个类能够直接继承两个或更多的类。
 
 然而，Java不允许多继承。
 
@@ -1915,4 +1915,503 @@ jshell>
 ```
 
 ### 16：接口介绍
+“游戏机”对你来说意味着什么？
 
+有按钮或其他控件的设备，可以让我们来打游戏。
+
+它上面有哪些常见的按钮？
+
+- 方向键 - 上 下 左 右
+- 选择键
+- 等等
+
+游戏机提供了一个接口来玩游戏。
+
+谁提供了按钮被单击时所发生事件的实现？游戏制作者 - 例如，马里奥游戏或国际象棋游戏的制作者。
+
+如何在Java程序中表示它？
+
+***GamingConsole.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public interface GamingConsole {
+  public void up();
+  public void down();
+  public void left();
+  public void right();
+}
+```
+
+`GamingConsole`接口包含了没有定义的方法。
+
+是提供了它们的实现？
+
+有请`MarioGame`。
+
+***MarioGame.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class MarioGame implements GamingConsole {
+  @Override
+  public void up() {
+    System.out.println("Jump");
+  }
+
+  @Override
+  public void down() {
+  System.out.println("Go into a hole");
+  }
+
+  @Override
+  public void left() {
+  }
+
+  @Override
+  public void right() {
+    System.out.println("Go Forward");
+  }
+}
+```
+
+`MarioGame`提供了所有在`GamingConsole`接口中声明方法的定义。语法很简单。`class MarioGame implements GamingConsole`，然后实现所有方法。
+
+让我们看看如何运行这些游戏。
+
+***GameRunner.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class GameRunner {
+  public static void main(String[] args) {
+    MarioGame game = new MarioGame();
+    game.up();
+    game.down();
+    game.left();
+    game.right();
+  }
+}
+```
+
+***控制台输出***
+
+*Jump*
+
+*Go into a hole*
+
+*Go forward*
+
+##### Snippet-01 说明
+
+接口的最主要的优点是让实现者执行一个约定。
+
+##### Snippet-02：接口的代码复用
+
+让我们来看另外一个例子 - `ChessGame`。
+
+***ChessGame.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class ChessGame implements GamingConsole {
+
+  @Override
+  public void up() {
+    System.out.println("Move Piece Up");
+  }
+
+  @Override
+  public void down() {
+    System.out.println("Move Piece Down");
+  }
+
+  @Override
+  public void left() {
+    System.out.println("Move Piece Left");
+  }
+
+  @Override
+  public void right() {
+    System.out.println("Move Piece Right");
+  }
+}
+```
+
+执行这段代码很简单。你所要做的就是注释掉`MarioGame game = new MarioGame();`然后用`ChessGame`的实现去代替它。
+
+***GameRunner.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class GameRunner {
+  public static void main(String[] args) {
+    //MarioGame game = new MarioGame();
+    ChessGame game = new ChessGame();
+    game.up();
+    game.down();
+    game.left();
+    game.right();
+  }
+}
+```
+
+***控制台输出***
+
+*Move Piece Up*
+
+*Move Piece Down*
+
+*Move Piece Left*
+
+*Move Piece Right*
+
+##### Snippet-2 说明
+
+在同一个`GameRunner`类中，如果我们想要实例化一个`ChessGame`对象来替换`MarioGame`，其余的代码都不需要修改。这是因为`MarioGame`和`ChessGame`都实现了同样的接口，`GamingConsole`。
+
+#### 使用接口作为引用变量类型
+
+`GamingConsole`是一个接口。`MarioGame`和`ChessGame`是它的实现。
+
+让我们试试这行代码 - `GamingConsole game = new ChessGame();`
+
+***GameRunner.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class GameRunner {
+  public static void main(String[] args) {
+    GamingConsole game = new ChessGame();
+    game.up();
+    game.down();
+    game.left();
+    game.right();
+  }
+}
+```
+
+***控制台输出***
+
+*Move Piece Up*
+
+*Move Piece Down*
+
+*Move Piece Left*
+
+*Move Piece Right*
+
+**说明**
+
+`GamingConsole game = new ChessGame();` - 你能将一个接口的实现存到这个接口的引用变量类型中。
+
+这样做有什么用呢？
+
+让我们看下一个例子：
+
+##### Snippet-4：GameRunner Version 4
+
+***GameRunner.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class GameRunner {
+  public static void main(String[] args) {
+    GamingConsole game = new MarioGame();
+    game.up();
+    game.down();
+    game.left();
+    game.right();
+  }
+}
+```
+
+***控制台输出***
+
+*Jump*
+
+*Go into a hole*
+
+*Go forward*
+
+##### Snippet-04 说明
+
+你能用`GamingConsole game = new MarioGame()`替换`GamingConsole game = new ChessGame()`。并且程序运行了`MarioGame`。是不是很棒？
+
+### 17：用接口来设计APIs
+
+思考一下，一个软件开发项目需要编写相当巨大而且复杂的应用。项目团队（团队A）决定外包这个项目的一部分给外部团队（团队B）。假设这个外部团队需要实现一个非常复杂的算法来完成特定的任务，并且需要与应用程序的其余部分进行交互。应用程序的两个部分的开发工作需要同时进行。
+
+假设用一个简单的方法实现这个算法逻辑：
+
+`int complexAlgorithm(int number1, int number2);`
+
+我们如何确保两个团队所做的工作保持兼容?
+
+他们从定义接口开始。
+
+***ComplexAlgorithm.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public interface ComplexAlgorithm {
+  int complexAlgorithm(int number1, int number2);
+}
+```
+
+现在两支团队可以继续了。团队A可以为这个接口创建一个占位`OneComplexAlgorithm`，然后开始他们的项目。
+
+***OneComplexAlgorithm.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class OneComplexAlgorithm implements ComplexAlgorithm {
+  public int complexAlgorithm(int number1, int number2) {
+    return number1 + number2;
+  }
+}
+```
+
+团队B花时间实现真正的算法。
+
+***ActualComplexAlgorithm.java***
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+
+public class ActualComplexAlgorithm implements ComplexAlgorithm {
+  public int complexAlgorithm(int number1, int number2) {
+    //Your complex implementation will be present here..
+    return number1 * number2;
+  }
+}
+```
+
+(译者注：原文中`OneComplexAlgorithm`和`ActualComplexAlgorithm`中没有`implements ComplexAlgorithm`这部分，应该是作者遗漏了)
+
+### 18：接口 - 疑问与有趣的事实
+
+让我们看几个例子来更好地了解接口。
+
+一个接口可以被另外的接口扩展。我们可以构建一个只包含接口的继承层次。
+
+```java
+jshell> interface InterfaceOne {
+   ...> void methodOne();
+   ...> }
+| created interface InterfaceOne
+
+jshell> interface InterfaceTwo extends InterfaceOne {
+   ...> void methodTwo();
+   ...> }
+| created interface InterfaceTwo
+```
+
+实现一个接口，应该实现这个接口所有的方法，包括父类接口中的方法。
+
+```java
+jshell> class Implementation implements InterfaceTwo {
+   ...>}
+| Error:
+| Implementation is not abstract and does not implement abstract method methodTwo() of 	InterfaceTwo
+| class Implementation implements InterfaceTwo {
+|^---------------------------------------------...
+
+jshell> public class Implementation implements InterfaceTwo {
+   ...> public void methodTwo() {}
+   ...> }
+| Error:
+| Implementation is not abstract and does not implement abstract method methodOne() of 	InterfaceOne
+| class Implementation implements InterfaceTwo {
+|^---------------------------------------------...
+
+jshell> public class Implementation implements InterfaceTwo {
+   ...> public void methodTwo() {}
+   ...> public void methodOne() {}
+   ...> }
+| created class Implementation
+```
+
+如果一个类声明为抽象类，它可以不用实现所有的接口方法。
+
+```java
+jshell> public abstract class AbstractImplementation implements InterfaceTwo {
+   ...> public void methodOne() {}
+   ...> }
+| created class AbstractImplementation
+```
+
+接口不能拥有成员变量。一个接口只能声明**常量**。
+
+```java
+jshell> interface InterfaceThree {
+   ...> int test;
+   ...> }
+| Error:
+| = expected 
+| int test;
+|_________^
+
+jshell> interface InterfaceThree {
+   ...> int test = 5;
+   ...> }
+| created interface InterfaceThree
+```
+
+从Java SE 8开始，接口可以为它的方法提供一个默认实现。通过在方法签名中包含`default`关键字，并在方法的定义中提供一个主体来实现。
+
+```java
+jshell> interface InterfaceFour {
+   ...> public default void print() {
+   ...> System.out.println("default print");
+   ...> }
+   ...> }
+| created interface InterfaceFour
+
+jshell> class TestPrint implements InterfaceFour {
+   ...> }
+| created class TestPrint
+
+
+jshell> TestPrint testPrint = new TestPrint();
+testPrint ==> TestPrint@6ebc05a6
+jshell> testPrint.print();
+default print
+```
+
+接口的实现可以覆盖这个默认的方法实现。
+
+```java
+jshell> class ParticularPrint implements InterfaceFour {
+   ...> public void print() {
+   ...> System.out.println("particular print");
+   ...> }
+   ...> }
+| created class ParticularPrint
+```
+
+```java
+jshell> ParticularPrint particularPrint = new ParticularPrint();
+particularPrint ==> ParticularPrint@5fad14c4
+jshell> particularPrint.print();
+particular print
+jshell>
+```
+
+不能将接口中的方法的访问修饰符声明为`private`。但是，抽象类可以将方法声明为`private`。
+
+#### 为什么我们需要默认方法
+
+让我们考虑一下有是哪个实现的`Provider`接口。
+
+```java
+public interface Provider {
+  public void doSomething();
+}
+
+public class ImplementorOne implements Provider {
+  @Override
+  public void doSomething() {
+    System.out.println("Do One");
+  }
+}
+
+public class ImplementorTwo implements Provider {
+  @Override
+  public void doSomething() {
+    System.out.println("Do Two");
+  }
+}
+
+public class ImplementorThree implements Provider {
+  @Override`
+  public void doSomething() {
+    System.out.println("Do Three");
+  }
+}
+```
+
+如果在这个接口中新增一个方法会发生什么？
+
+```java
+public interface Provider {
+  public void doSomething();
+  public void doMore();
+}
+```
+
+编译出错！所有的实现该接口的类`ImplementationOne`，`ImplementationTwo`和`ImplementationThree`必须实现`doMore()`方法。
+
+另一种选择：为`doMore`提供一个默认实现。
+
+```java
+public interface Provider {
+  public void doSomething();
+
+  public default void doMore(){
+    System.out.println("Do More");
+  }
+}
+```
+
+不需要立即修改其他代码，而且具体实现接口的类可以在需要的时候覆盖默认方法。
+
+这在构建和扩展框架时特别有用。当你向框架接口中添加新方法时，并不会破坏用户的接口。
+
+### 19：抽象类与接口：比较
+
+抽象类与接口除了它们有很相似的语法外，有很大的区别。
+
+什么时候在应用程序中使用它们?
+
+#### 接口
+
+接口是一种**约定**。
+
+接口主要用于当你有两个软件组件需要相互通信时，这时候需要建立一个约定。
+
+回想下面的例子：`ComplexAlgorithm`定义了两个团队都涉及到的接口。
+
+```java
+package com.in28minutes.oops.level2.interfaces;
+public interface ComplexAlgorithm {
+  int complexAlgorithm(int number1, int number2);
+}
+```
+
+#### 抽象类
+
+抽象类主要用于通过创建父类泛化行为。
+
+回顾一下我们之前讨论的例子：
+
+```java
+public abstract class AbstractRecipe {
+  public void execute() {
+    prepareIngredients();
+    cookRecipe();
+    cleanup();
+  }
+
+  abstract void prepareIngredients();
+  abstract void cookRecipe();
+  abstract void cleanup();
+}
+```
+
+#### 语法比较
+
+这里有一重要的语法差异：
+
+- 不能将接口中的方法的访问修饰符声明为`private`。但是，抽象类可以将方法声明为`private`。
+- 接口不能声明成员变量，而抽象类可以声明成员变量。
+- 类或者抽象类可以实现多个接口。但是接口只能继承一个接口，并且类或者抽象列只能继承一个类或者一个抽象类。
