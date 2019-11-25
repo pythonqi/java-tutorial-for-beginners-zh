@@ -36,7 +36,7 @@
 - [Chapter 11 - Object Oriented Programming (*OOP*) - Revisited](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/11-ObjectOrientedProgrammingRevisited)【已完成】
 - [Chapter 12 - Introducing Collections](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/12-IntroducingCollections)【已完成】
 - Chapter 13 - Introducing Generics
-- Chapter 14 - Introduction to Functional Programming
+- [Chapter 14 - Introduction to Functional Programming](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/14-IntroductiontoFunctionalProgramming)【翻译中】
 - [Chapter 15 - Threads and Concurrency](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/15-ThreadsAndConcurrency)【已完成】
 - Chapter 16 - Introduction To Exception handling
 - Chapter 17 - File Operations
