@@ -28,7 +28,7 @@
 - Chapter 03 - Understanding the Java Platform
 - Chapter 04 - Eclipse
 - [Chapter 05 - Object Oriented Progamming (OOP)](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/05-ObjectOrientedProgamming)【已完成】
-- Chapter 06 - Primitive Data Types
+- [Chapter 06 - Primitive Data Types](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/06-PrimitiveDataTypes) 【翻译中】
 - Chapter 07 - Introducing Conditionals - if, switch and more
 - Chapter 08 - Loops
 - Chapter 09 - Reference Types
