@@ -109,3 +109,138 @@ jshell>
 - 研究了为基本整数类型提供的包装器类
 - 了解这些类型的不同容量和数据范围
 - 研究了如何使用显式和隐式强制类型转换
+
+### 02：整数的表示
+
+在十进制中，允许的数字是从0到9。当遇到10时，位数增加1，表示为“10”。
+
+熟悉数字系统的人都知道，十进制不是计算机能理解的唯一进制。
+
+Java支持8进制和16进制。
+
+在八进制中，允许的数字是0到7，值8用“010”表示。添加前导0只是为了区分八进制格式和十进制格式。
+
+在十六进制中，允许的数字是0到9，然后是a到f(或a到f)， 16的值由“0x10”表示。这里，添加了一个前导0x来帮助编译器识别十六进制表示。
+
+让我们看看Java如何支持这三种进制。
+
+##### Snippet-01：用整数类型存储八进制和十六进制
+
+Java中没有特定于数字系统的整数类型！使用相同的`int`类型存储十进制、八进制和十六进制值。
+
+如果我们坚持关于有效数字的数字系统约定，并理解编译器提示，就不会感到惊讶。
+
+```java
+jshell> int eight = 010;
+eight ==> 8
+jshell> int sixteen = 0x10;
+sixteen ==> 16
+jshell> int fifteen = 0xf;
+fifteen ==> 15
+jshell> int eight = 08;//8 is invalid octal digit
+| Error:
+| integer number too large : 08
+| int eight = 08;
+|___________^
+jshell> int big = 0xbbaacc;
+big ==> 12298956
+jshell>
+```
+
+##### Snippet-02 : 更多的整型转换
+
+有两种赋值：
+
+- 字面量到值赋值：`short s = 123456;`，数据显然超出了范围（在编译时可知）。编译器报错。
+- 值到值赋值：看一下`sh = in;`。存在`int in`里的值是`4567`，这完全在`short`类型范围内。编译器选择不冒险并报错。可以使用一个显示强制转换`sh = (short) in`来代替。
+
+```java
+jshell> byte b = 128;
+| Error:
+| incompatible types: possible lossy conversion from int to byte
+| byte b = 128;
+|_________^--^
+jshell> short s = 123456;
+| Error:
+| incompatible types: possible lossy conversion from int to short
+| short s = 123456;
+|__________^-------^
+jshell> short sh = 3456;
+sh ==> 3456
+jshell> int in = 4567;
+in ==> 3456
+jshell> sh = in;
+| Error:
+| incompatible types: possible lossy conversion from int to short
+| sh = in;
+|______^
+jshell> sh = (short) in;
+sh ==> 4567
+jshell> int num = sh;
+num ==> 4567
+jshell>
+```
+
+##### 整型的内置运算符
+
+我们已经大致了解了整数类型的算术运算符：
+
+- `+`
+- `-`
+- `*`
+- `/`
+- `%`
+- `++`（前++和后++）
+- `--`（前--和后--）
+
+递增和递减操作符有点意思，因为它们实际上是多个语句的短指针。当我们使用它们的前缀和后缀版本时，需要注意它们的副作用。
+
+##### Snippet-03：加减运算符
+
+对于后++，例如`int j = i++;`，增量发生在赋值后。`j`得到增量之前的值。
+
+```java
+jshell> int i = 10;
+i ==> 10
+jshell> int j = i++;
+j ==> 10
+jshell> i
+i ==> 11
+```
+
+对于前++，比如`int n = ++m;`，增量发生在赋值前。`n`得到的是增量后的值。
+
+```java
+jshell> int m = 10;
+m ==> 10
+jshell> int n = ++m;
+n ==> 11
+jshell> m
+m ==> 11
+```
+
+对于后--，比如`int l = k--`，减量发生在赋值后。对于前--，比如`int q = --p;`，减量发生在赋值前。
+
+```java
+jshell> int k = 10;
+k ==> 10
+jshell> int l = k--;
+l ==> 10
+jshell> k
+k ==> 9
+jshell> int p = 10;
+p ==> 10
+jshell> int q = --p;
+q ==> 9
+jshell> p
+p ==> 9
+jshell>
+```
+
+##### 总结：
+
+在这一小节中，我们：
+
+- 研究了Java支持的整数进制
+- 研究了前缀和后缀版本如何对递增和递减操作符起作用
+
