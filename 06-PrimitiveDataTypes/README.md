@@ -244,3 +244,98 @@ jshell>
 - 研究了Java支持的整数进制
 - 研究了前缀和后缀版本如何对递增和递减操作符起作用
 
+### 03：课堂练习 CE-01（带解题过程）
+
+##### 练习集
+
+1. 创建一个Java类`BiNumber`，该类存储一对整数，并具有以下功能：
+   - 可以通过传递存储最初两个数字实例化
+   - 必须支持对存储的整数的加法和乘法运算
+   - 将两个数字的值翻倍的操作
+   - 单独访问每个数字
+
+简而言之，我们必须能在运行类中的`main`方法中编写这样的代码：
+
+```java
+BiNumber numbers = new BiNumber(2, 3);
+System.out.println(numbers.add());
+System.out.println(numbers.multiply);
+numbers.double();
+System.out.println(numbers.getNumber1());
+System.out.println(numbers.getNumber2());
+```
+
+##### CE-01的解答过程
+
+***BiNumber.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class BiNumber {
+  private int number1;
+  private int number2;
+  
+  public BiNumber(int number1, int number2) {
+    this.number1 = number1;
+    this.number2 = number2;
+  }
+  
+  public int add() {
+    return number1 + number2;
+  }
+  
+  public int multiply() {
+    return number1 * number2;
+  }
+  
+  public void doubleValue() {
+    number1 *= 2;
+    number2 *= 2;
+  }
+  
+  public int getNumber1() {
+    return number1;
+  }
+  
+  public int getNumber2() {
+    return number2;
+  }
+  
+	public void setNumber1(int number1) {
+    this.number1 = number1;
+  }
+
+  public void setNumber2(int number2) {
+    this.number2 = number2;
+  }
+}
+```
+
+***BiNumberRunner.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class BiNumberRunner {
+  public static void main(String[] args) {
+    BiNumber numbers = new BiNumber(2, 3);
+    System.out.println(numbers.add());
+    System.out.println(numbers.multiply());
+    numbers.doubleValue();
+    System.out.println(numbers.getNumber1());
+    System.out.println(numbers.getNumber2());
+  }
+}
+```
+
+***控制台输出***
+
+*5*
+
+*6*
+
+*4*
+
+*6*
+
