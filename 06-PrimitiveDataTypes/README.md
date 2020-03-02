@@ -102,7 +102,7 @@ jshell>
 
 还记得我们前面关于可能的不正确程序行为的陈述吗？可以看到，`i`中存储了一个不同的值。
 
-##### 总结
+#### 总结
 
 在这一小节中，我们：
 
@@ -237,7 +237,7 @@ p ==> 9
 jshell>
 ```
 
-##### 总结：
+#### 总结：
 
 在这一小节中，我们：
 
@@ -339,3 +339,80 @@ public class BiNumberRunner {
 
 *6*
 
+### 04：浮点类型
+
+你应该记得在Java中有两种支持浮点数的类型：
+
+- `double`：浮点数的默认类型，大小8字节
+- `float`：一种更窄、更不精确的浮点数表示。它的大小为4字节。
+
+让我们用一些代码片段快速地回忆一下我们所了解的内容。
+
+##### Snippet-01 : double & float
+
+在Java中默认的浮点类型是`double`。`float`类型必须带有后缀`f`或者`F`。
+
+```java
+jshell> float f = 34.5;
+| Error:
+| incomaptible types: possible lossy conversion from double to float
+| float f = 34.5;
+|_________^---^
+jshell> float f = 34.5f;
+f ==> 34.5
+jshell> float fl = 34.5F;
+fl ==> 34.5
+jshell> double d = 34.5678;
+d ==> 34.5678
+jshell> float flo = d;
+| Error:
+| incomaptible types: possible lossy conversion from double to float
+| float flo = d;
+|__________^
+jshell> float flo = (float) d;
+flo ==> 
+```
+
+##### Snippet-02 : double类型相关操作符
+
+你可以对double类型数据使用`++`，`--`和`%`操作符。
+
+```java
+jshell> double dbl = 34.5678;
+dbl ==> 34.5678
+
+jshell> dbl++
+$3 ==> 34.5678
+
+jshell> dbl
+dbl ==> 35.5678
+
+jshell> dbl--
+dbl ==> 35.5678
+jshell> dbl % 5
+dbl ==> 4.567799999999998
+```
+
+需要显式强制转换才能将浮点数转换为整数值`int i = (int)f`。
+
+```java
+jshell> float f = 34.5678f;
+f ==> 34.5678
+jshell> int i = f;
+| Error:
+| incomaptible types: possible lossy conversion from float to int
+| int i = f;
+|_______^
+jshell> int i = (int)f;
+i ==> 34
+jshell> float fl = i;
+fl ==> 34.0
+jshell>
+```
+
+#### 总结
+
+在这一小节中，我们：
+
+- 了解了如何创建浮点类型的字面量和变量
+- 学习了`double`和`float`之间的区别
