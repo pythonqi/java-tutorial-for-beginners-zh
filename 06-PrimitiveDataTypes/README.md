@@ -416,3 +416,51 @@ jshell>
 
 - 了解了如何创建浮点类型的字面量和变量
 - 学习了`double`和`float`之间的区别
+
+### 05：BigDecimal
+
+虽然`double`和`float`很接近了，但它们并不是浮点数非常精确的表示。
+
+事实上，它们并不用于需要高精确度的计算，比如科学实验和金融应用。下面这个示例说明了原因。
+
+```java
+jshell> 34.56789876 + 34.2234
+$1 ==> 68.79129875999999
+```
+
+常量表达式`34.56789876 + 34.2234`应该等于`68.79129876`。上面的结果并不准确。
+
+这是由于浮点表示法的缺陷造成的，在`double`和`float`类型中都使用了浮点表示法。
+
+在Java中引入了`BigDecimal`类来解决这些问题。
+
+只有在使用`String`常量构建`BigDecimal`表示时，才会保留其准确性。
+
+```java
+jshell> BigDecimal number1 = new BigDecimal("34.56789876");
+number1 ==> 34.56789876
+jshell> BigDecimal number2 = new BigDecimal("34.2234");
+number2 ==> 34.2234
+```
+
+`BigDecimal`类型只能用于创建**不可变**的对象。不可变对象中的值在创建后不能更改。
+
+可以看到`number1`的值在执行`number1.add(number2)`时没有改变。为了得到相加的结果，我们创建了一个新的变量`sum`。
+
+```java
+jshell> number1.add(number2);
+$2 ==> 68.79129876
+jshell> number1
+number1 ==> 34.56789876
+jshell> BigDecimal sum = number1.add(number2);
+sum ==> 68.79129876
+```
+
+#### 总结
+
+在这一小节中，我们：
+
+- 学习了`double`和`float`不是非常精确的数据类型
+- 介绍了内置的`BigDecimal`数据类型
+- 知道了`BigDecimal`是不可变的
+- 当使用字符串常量构造`BigDecimal`数据时，可以保证精确性
