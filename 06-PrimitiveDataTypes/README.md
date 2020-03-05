@@ -244,9 +244,9 @@ jshell>
 - 研究了Java支持的整数进制
 - 研究了前缀和后缀版本如何对递增和递减操作符起作用
 
-### 03：课堂练习 CE-01（带解题过程）
+### 03：课堂练习 CE-01（带答案）
 
-##### 练习集
+#### 练习集
 
 1. 创建一个Java类`BiNumber`，该类存储一对整数，并具有以下功能：
    - 可以通过传递存储最初两个数字实例化
@@ -464,3 +464,126 @@ sum ==> 68.79129876
 - 介绍了内置的`BigDecimal`数据类型
 - 知道了`BigDecimal`是不可变的
 - 当使用字符串常量构造`BigDecimal`数据时，可以保证精确性
+
+### 06：BigDecimal 运算
+
+让我们看一下`BigDecimal`类中定义的其他一些操作。
+
+##### Snippet-01: 算术运算
+
+所有`BigDecimal`运算仅支持`BigDecimal`运算对象。
+
+```java
+jshell> BigDecimal number1 = new BigDecimal("11.5");
+number1 ==> 11.5 (原文此处为 34.95678，作者笔误)
+jshell> BigDecimal number2 = new BigDecimal("23.45678");
+number2 ==> 23.45678
+jshell> number1.add(number2);
+$1 ==> 34.95678
+```
+
+`BigDecimal`不能和基本数据类型进行运算。
+
+```java
+jshell> int i = 5;
+i ==> 5
+jshell> number1.add(i);
+| Error:
+| incompatible types: int cannot be converted to java.math.BigDecimal
+| number1.add(i);
+|_____________^
+```
+
+我们可以对`BigDecimal`值加减乘除。
+
+```java
+jshell> number1.add(new BigDecimal(i));
+$2 ==> 16.5
+jshell> number1.multiply(new BigDecimal(i));
+$3 ==> 67.5
+jshell> number1.divide(new BigDecimal(100));
+$4 ==> 0.115
+jshell>
+```
+
+#### 总结
+
+这一小节中，我们：
+
+- 学习了`BigDecimal`类用于一些基本算术的方法
+- 发现了`BigDecimal`类的构造函数可以接受大多数基本的Java数字类型
+
+### 07：课堂练习 CE-02
+
+#### 练习集
+
+编写一个程序，对本金金额进行单利计算。 这种计算的公式是：
+
+`Total amount (TA) = Principal Amount (PA) + ( PA * Simple Interest (SI) Rate * Duration In Years (N))`
+
+本质上，就是写一个`SimpleInterestCalculator`类能够按下面的方式使用：
+
+```java
+SimpleInterestCalculator calculator = new SimpleInterestCalculator("4500.00", "7.5");
+BigDecimal totalValue = calculator.calculateTotalValue(5); //5 year duration
+System.out.println(totalValue);
+```
+
+#### CE-02 答案
+
+***SimpleInterestCalculatorRunner.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+import java.math.BigDecimal;
+
+public class SimpleInterestCalculatorRunner {
+  public static void main(String[] args) {
+    SimpleInterestCalculator calculator = new SimpleInterestCalculator("4500.00", 7.5");
+    BigDecimal totalValue = calculator.calculateTotalValue(5); //5 year duration
+    System.out.println(totalValue);
+  }
+}
+```
+
+***SimpleInterestCalculator.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+import java.math.BigDecimal;
+
+public class SimpleInterestCalculatorRunner {
+  BigDecimal principal;
+  BigDecimal interest;
+
+  public SimpleInterestCalculator(String principal, String interest) {
+    this.principal = new BigDecimal(principal);
+    this.interest = new BigDecimal(interest).divide(new BigDecimal(100));
+  }
+
+  public BigDecimjal calculateTotalValue(int noOfYears)
+    //Total Value = Principal  + Principal * Interest* Years
+    BigDecimal totalValue = prinipal.add(principal.multiply(interest).multiply(new BigDecimal(noOfYears)));
+    return totalValue;
+  }	
+}
+```
+
+***控制台输出***
+
+*6187.50000*
+
+#### 提示：`import`语句
+
+每个使用另一个包中的类的源文件中都需要Java的`import`语句。所以，***SimpleInterestCalculator.java***（定义的类）和***SimpleInterestCalculatorRunner.java***（定义的运行类）都需要导入`java.math.BigDecimal`类。
+
+默认导入了`package java.lang.*`。
+
+后缀`.*`表示所有在`java.lang`包中的类都被导入了。
+
+#### 总结
+
+这一小节中，我们：
+
+- 在独立的`Java`程序中使用了`BigDecimal`
+- 学习了怎样通过`import`语句来使用内置的Java包
