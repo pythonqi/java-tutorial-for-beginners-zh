@@ -587,3 +587,171 @@ public class SimpleInterestCalculatorRunner {
 
 - 在独立的`Java`程序中使用了`BigDecimal`
 - 学习了怎样通过`import`语句来使用内置的Java包
+
+### 08：`boolean`，关系运算符和逻辑运算符
+
+Java中的布尔数据类型中的值只包含`true`或者`false`。两者都是大小写敏感的。我们已经看到了内置比较运算符的示例，例如`==`，`!=`和`>`，它们对表达式进行求值得到布尔结果。 让我们快速回顾一下其中的一部分。
+
+##### Snippet-01 : 回顾关系运算符
+
+关系运算符主要用于比较。 它们接受非布尔的基本数据类型的操作数，并返回布尔值。
+
+```java
+jshell> int i = 7;
+i ==> 7
+jshell> i > 7;
+$1 ==> false
+jshell> i >= 7;
+$2 ==> true
+jshell> i < 7;
+$3 ==> false
+jshell> i <= 7;
+$4 ==> true
+jshell> i == 7;
+$5 ==> true
+jshell> i == 8;
+$6 ==> false
+jshell>
+```
+
+#### 逻辑运算符
+
+Java还有用在表达式中的逻辑运算符。逻辑运算符接受布尔操作数。这些表达式用于在代码中形成布尔条件，包括`if`，`for`和`while`语句内。几个重要的逻辑运算符为：
+
+- `&&`：逻辑与
+- `||`：逻辑或
+- `!`：逻辑非
+
+让我们学习一下如何在代码中使用它们。
+
+##### Snippet-02 : 逻辑运算符
+
+我们想看看`i`是否在`15`到`25`之间。可以使用表达式`i> = 15 && i <= 25`。详细信息如下。
+
+```java
+jshell> int i = 17;
+i ==> 17
+jshell> i >= 15
+$1 ==> true
+jshell> i <= 25
+$2 ==> true
+jshell> i >= 15 && i <= 25
+$3 ==> true
+jshell> i == 30;
+i ==> 30
+jshell> i >= 15 && i <= 25
+$4 ==> false
+jshell> i == 5;
+i ==> 30
+jshell> i >= 15 && i <= 25
+$5 ==> false
+```
+
+只有当带有`&&`的表达式的两个布尔操作数都为`true`，整个表达式才为`true`。
+
+```java
+jshell> true && true
+$6 ==> true
+jshell> true && false
+$7 ==> false
+jshell> false && true
+$8 ==> false
+jshell> false && false
+$9 ==> false
+jshell>
+```
+
+##### Snippet-02 说明
+
+下一个示例帮助我们可视化主要的逻辑运算符的真值表。
+
+```java
+	jshell> true || true
+	$1 ==> true
+	jshell> true || false
+	$2 ==> true
+	jshell> false || true
+	$3 ==> true
+	jshell> false || false
+	$4 ==> false
+	jshell> true ^ true
+	$5 ==> false
+	jshell> true ^ false
+	$6 ==> true
+	jshell> false ^ true
+	$7 ==> true
+	jshell> false ^ false
+	$8 ==> false
+	jshell> !true
+	$9 ==> false
+	jshell> !false
+	$10 ==> true
+	jshell> int x = 6;
+	x ==> 6
+	jshell> !(x > 7)
+	$11 ==> true
+	jshell>
+```
+
+#### 总结
+
+这一小节中，我们：
+
+- 我们引入了`boolean`基本数据类型
+- 学习了在哪里使用逻辑运算符
+- 学习了常用逻辑运算符的真值表
+
+### 09：短路求值（带疑问）
+
+思考下面这段代码。表达式`j > 15 && i++ > 5`为值应该为`false`。因为`j`的值为`15`，所以`j>15`。
+
+```java
+jshell> int j = 15;
+j ==> 15
+jshell> int i = 10;
+i ==> 10
+jshell> j > 15 && i++ > 5
+$1 ==> false
+jshell> j
+j ==> 15
+jshell> i
+i ==> 10
+```
+
+你也可以发现`i`的值保持不变为`10`。
+
+为什么？因为`i++ > 5`甚至都没有执行。为什么？`&&`是惰性的。当`j > 15`为`false`时。无论第二个表达式的结果如何，这个`&&`的结果都是`false`。所以它不计算第二个表达式的值。
+
+***更详细的解释***
+
+从左至右扫描表达式`j > 15 && i++ > 5`。当第一个操作数到`&&`被赋值为`false`时，编译器变懒了。`&&`避免计算不影响最终结果的表达式。这种优化有一个名字：**短路求值**，也叫**延迟求值**。
+
+逻辑运算符`&`是逻辑与操作，它消除了延迟计算。
+
+`&`两边的操作数都会进行计算。
+
+```java
+jshell> j > 15 & i++ > 5
+$1 ==> false
+jshell> j
+j ==> 15
+jshell> i
+i ==> 11
+jshell>a
+```
+
+同样，**或**运算符也有两个版本：
+
+- 之前看到的`||`运算符。表现为延迟求值。
+- `|`运算符，非延迟求值。
+
+对于我们的代码而言，依赖于编译器的延迟求值不是好的编程习惯。 它使代码的可读性降低，并且可能隐藏难以修复的bug。 这显然增加了代码维护工作，所以别这么做，除非你想被你的同行厌恶。
+
+#### 总结
+
+在这一小节中，我们：
+
+- 验证了涉及到逻辑运算的条件会有延迟求值
+- 发现了延迟求值取决于操作符的真值表
+- 看了没有延迟求值的运算符版本
+- 知道了依赖于延迟求值的代码具有更差的可读性
