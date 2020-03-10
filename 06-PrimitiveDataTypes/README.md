@@ -810,3 +810,332 @@ jshell>
 - 引入了`char`数据类型
 - 学习了Unicode将字符集扩展到键盘之外
 - ascii字符是`char`值，用一个整数值编码
+
+### 11：编程练习 PE-02
+
+#### 练习集
+
+1. 编写一个Java类`Mychar`，它是一种特殊`char`类型。将围绕输入`char`数据元素创建`MyChar`类型的对象，并具有以下功能：
+   - 检查输入字符是否为：
+     - 数字
+     - 字母
+     - 元音字母（大写或小写）
+     - 辅音字母（大写或小写）注：如果不是元音，则字母是辅音
+   - 打印所有字母
+     - 大写
+     - 小写
+
+实质上，`MyChar`的运行类的`main`方法运行代码类似于：
+
+```java
+MyChar myChar = new MyChar('c');
+System.out.println(myChar.isDigit());
+System.out.println(myChar.isAlphabet());
+System.out.println(myChar.isVowel());
+System.out.println(myChar.isConsonant());
+myChar.printLowerCaseAlphabets();
+myChar.printUpperCaseAlphabets();
+```
+
+### 12：PE-02答案，Part 1 - `isVowel()`
+
+***MyCharRunner.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class MyCharRunner {
+  public static void main(String[] args) {
+    MyChar myChar = new MyChar('c');
+    System.out.println(myChar.isVowel());
+  }
+}
+```
+
+***MyChar.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class MyChar {
+  private char ch;
+
+  public MyChar(char ch) {
+    this.ch = ch;
+  }
+
+  public boolean isVowel() {
+    if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+      return true;
+    } 
+    if(ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U') {
+      return true;
+    }
+    return false;
+  }
+}
+```
+
+***控制台输出*** :
+
+*false*
+
+### 13：PE-02答案，Part 2 - `is Digit()`
+
+***MyCharRunner.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class MyCharRunner {
+  public static void main(String[] args) {
+    MyChar myChar = new MyChar('c');
+    System.out.println(myChar.isDigit());
+    System.out.println(myChar.isVowel());
+  }
+}
+```
+
+***MyChar.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class MyChar {
+  private char ch;
+
+  public MyChar(char ch) {
+    this.ch = ch;
+  }
+
+  public boolean isVowel() {
+    if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+      return true;
+    } 
+
+    if(ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U') {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isDigit() {
+    if(ch >= 48 && ch <= 57) {
+      return true;
+    }
+    return false;
+  }
+
+}
+```
+
+***控制台输出*** :
+
+*false*
+
+*false*
+
+### 14：PE-02答案，Part 3 - 其他方法
+
+***MyCharRunner.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class MyCharRunner {
+  public static void main(String[] args) {
+    MyChar myChar = new MyChar('c');
+    System.out.println(myChar.isDigit());
+    System.out.println(myChar.isAlphabet());
+    System.out.println(myChar.isVowel());
+    System.out.println(myChar.isConsonant());
+    myChar.printLowerCaseAlphabets();
+    myChar.printUpperCaseAlphabets();
+  }
+}
+```
+
+***MyChar.java***
+
+```java
+package com.in28minutes.primitive.datatypes;
+
+public class MyChar {
+  private char ch;
+
+  public MyChar(char ch) {
+    this.ch = ch;
+  }
+
+  public boolean isVowel() {
+    if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+      return true;
+    } 
+    if(ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U') {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isConsonant() {
+    if(isAlphabet() && !(isVowel())) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isDigit() {
+    if(ch >= 48 && ch <= 57) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isAlphabet() {
+    if(ch >= 97 && ch <= 122) {
+      return true;
+    }
+    if(ch >= 65 && ch <= 90) {
+      return true;
+    }
+    return false;
+  }
+
+  public void printLowerCaseAlphabets() {
+    for(char ch='a'; ch <= 'z'; ch++) {
+      System.out.println(ch);
+    }
+  }
+
+  public void printUpperCaseAlphabets() {
+    for(char ch='A'; ch <= 'Z'; ch++) {
+      System.out.println(ch);
+    }
+  }
+}
+```
+
+***控制台输出*** :
+
+*false*
+
+*true*
+
+*false*
+
+*true*
+
+a
+
+b
+
+c
+
+d
+
+e
+
+f
+
+g
+
+h
+
+i
+
+j
+
+k
+
+l
+
+m
+
+n
+
+o
+
+p
+
+q
+
+r
+
+s
+
+t
+
+u
+
+v
+
+w
+
+x
+
+y
+
+z
+
+A
+
+B
+
+C
+
+D
+
+E
+
+F
+
+G
+
+H
+
+I
+
+J
+
+K
+
+L
+
+M
+
+N
+
+O
+
+P
+
+Q
+
+R
+
+S
+
+T
+
+U
+
+V
+
+W
+
+X
+
+Y
+
+Z
+
+### 15：基本数据类型 - 复习
+
+在本节中，我们了解了Java基本数据类型。
+
+- 我们首先熟悉整数类型的内置包装器，它存储有用的类型信息。
+- 从整数类型到浮点类型，我们研究了类型兼容性，以及编译器如何警告常见的陷阱。 我们使用显式强制转换来强制类型转换，并了解到隐式类型转换非常普遍。
+- 我们使用了`BigDecimal`类，这是一种具有更高精度和准确性的浮点类型。
+- 接下来是`boolean`，建立在我们所知道的逻辑表达式上。我们主要关注逻辑运算符，更侧重于对它们表达式的短路求值。
+- 我们了解了依赖于副作用和延迟求值不是一个好的编程习惯。
+- 最后，我们学习了`char`类型，发现了远远不止键盘上所限的字符。
