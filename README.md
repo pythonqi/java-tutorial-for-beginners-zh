@@ -29,7 +29,7 @@
 - Chapter 04 - Eclipse
 - [Chapter 05 - Object Oriented Progamming (OOP)](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/05-ObjectOrientedProgamming)【已完成】
 - [Chapter 06 - Primitive Data Types](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/06-PrimitiveDataTypes) 【已完成】
-- Chapter 07 - Introducing Conditionals - if, switch and more
+- [Chapter 07 - Introducing Conditionals - if, switch and more](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/07-IntroducingConditionals) 【翻译中】
 - Chapter 08 - Loops
 - Chapter 09 - Reference Types
 - [Chapter 10 - Arrays and ArrayList](https://github.com/pythonqi/java-tutorial-for-beginners-zh/tree/master/10-ArraysAndArrayList)【已完成】
